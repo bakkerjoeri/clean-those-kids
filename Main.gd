@@ -14,7 +14,7 @@ func _ready():
 func add_kid():
 	var kid = kid_scene.instance()
 	# Set kid to random position within screen
-	kid.position = (screen_size - Vector2(24,24)) * rand_range(0,1) + Vector2(24,24)
+	kid.position = (screen_size - Vector2(48,48)) * rand_range(0,1) + Vector2(24,24)
 	kid.connect("kid_cleaned", self, "_on_Kid_cleaned")
 	add_child(kid)
 		
