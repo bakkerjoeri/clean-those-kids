@@ -1,3 +1,15 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Kid.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Hand.tscn" type="PackedScene" id=2]
 
 [node name="Node" type="Node"]
+
+[node name="Kid2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 253.498, 59.6385 )
+
+[node name="Kid" parent="." instance=ExtResource( 1 )]
+position = Vector2( 56.871, 130.624 )
+
+[node name="Hand" parent="." instance=ExtResource( 2 )]
+position = Vector2( 171.443, 84.9606 )
