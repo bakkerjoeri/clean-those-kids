@@ -20,8 +20,8 @@ func _ready():
 	
 	for p in range(number_of_dirt_spots):
 		var dirt_group_position = Vector2(
-			rand_range(-22, 22),
-			rand_range(-22, 22)
+			randi() % 45 - 22,
+			randi() % 45 - 22
 		)
 		build_dirt(dirt_group_position)
 			
