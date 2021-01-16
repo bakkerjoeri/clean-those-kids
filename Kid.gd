@@ -41,9 +41,9 @@ func _process(delta):
 
 func move_around(delta):
 	position += velocity * delta
-	if position.x < 24 or position.x > screen_size.x - 48:
+	if position.x < 24 or position.x > screen_size.x - 24:
 		velocity.x = -velocity.x
-	if position.y < 24 or position.y > screen_size.y - 48:
+	if position.y < 24 or position.y > screen_size.y - 24:
 		velocity.y = -velocity.y
 	
 
