@@ -15,6 +15,9 @@ var velocity: Vector2
 var screen_size: Vector2
 
 func _ready():
+	# Choose a face!
+	$AnimatedSprite.set_frame(randi() % $AnimatedSprite.frames.get_frame_count("default"))
+	
 	for p in range(number_of_dirt_spots):
 		var dirt_group_position = Vector2(
 			rand_range(-22, 22),
