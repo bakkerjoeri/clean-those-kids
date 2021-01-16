@@ -6,8 +6,8 @@ export(PackedScene) var dirt_scene
 export var number_of_dirt_spots: int = 4
 export var dirt_per_spot: int = 16
 
-export var min_speed: int = 10
-export var max_speed: int = 30
+export var min_speed: int = 30
+export var max_speed: int = 50
 
 var my_dirts = 0
 var is_clean = false
