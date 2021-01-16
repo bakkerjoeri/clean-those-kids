@@ -6,12 +6,8 @@
 
 [node name="Node" type="Node"]
 script = ExtResource( 3 )
-
-[node name="Kid2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 253.498, 59.6385 )
-
-[node name="Kid" parent="." instance=ExtResource( 1 )]
-position = Vector2( 56.871, 130.624 )
+kid_scene = ExtResource( 1 )
 
 [node name="Hand" parent="." instance=ExtResource( 2 )]
 position = Vector2( 171.443, 84.9606 )
+z_index = 1

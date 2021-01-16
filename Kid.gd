@@ -1,5 +1,7 @@
 extends Node2D
 
+signal kid_cleaned
+
 export(PackedScene) var dirt_scene
 export var number_of_dirt_spots: int = 4
 export var dirt_per_spot: int = 16
@@ -56,6 +58,7 @@ func _process(delta):
 	if my_dirts == 0 && !is_clean:
 		is_clean = true
 		print("PERFECT KID!")
+		emit_signal("kid_cleaned")
 	move_around(delta)
 
 func move_around(delta):
