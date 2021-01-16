@@ -2,7 +2,7 @@ extends Node2D
 
 export(PackedScene) var dirt_scene
 export var number_of_dirt_spots: int = 4
-export var dirt_per_spot: int = 8
+export var dirt_per_spot: int = 16
 
 export var min_speed: int = 10
 export var max_speed: int = 30
@@ -18,20 +18,39 @@ func _ready():
 			rand_range(-22, 22),
 			rand_range(-22, 22)
 		)
-
-		for q in range(dirt_per_spot):
-			var dirt = dirt_scene.instance()
-			dirt.position = dirt_group_position + Vector2(
-				rand_range(-3, 3),
-				rand_range(-3, 3)
-			)
-			add_child(dirt)
-			my_dirts += 1
-			dirt.connect("cleaned", self, "_on_Dirt_cleaned")
+		build_dirt(dirt_group_position)
 			
 	var direction = rand_range(-PI, PI)
 	velocity = Vector2(rand_range(min_speed, max_speed), 0).rotated(direction)
 	screen_size = get_viewport_rect().size
+
+func is_unoccupied_position(all_dirts, new_pos):
+	for dirt in all_dirts:
+		if dirt.position == new_pos:
+			return false
+	return true
+
+func build_dirt(start_pos:Vector2):
+	var all_dirts = []
+	
+	while all_dirts.size() < dirt_per_spot:
+		var dirt = dirt_scene.instance()
+		if all_dirts.size() == 0:
+			dirt.position = start_pos
+		else:
+			var xdir = randi() % 3 - 1
+			var ydir = randi() % 3 - 1
+			if xdir == 0 and ydir == 0:
+				ydir = -1 if randi() % 2 == 0 else 1
+			dirt.position = all_dirts[randi() % all_dirts.size()].position + Vector2(xdir, ydir)
+			if not is_unoccupied_position(all_dirts, dirt.position):
+				continue
+			
+		all_dirts.append(dirt)
+		add_child(dirt)
+		my_dirts += 1
+		dirt.connect("cleaned", self, "_on_Dirt_cleaned")
+
 
 func _process(delta):
 	if my_dirts == 0 && !is_clean:
