@@ -1,5 +1,7 @@
 extends Area2D
 
+signal cleaned
+
 const colors = [
 	Color("#2f5753"),
 	Color("#283540"),
@@ -13,4 +15,5 @@ func _ready():
 	$ColorRect.color = colors[randi() % colors.size()]
 
 func _on_Dirt_area_entered(area):
-	print("Dirt be scrubbed from area")
+	emit_signal("cleaned")
+	queue_free()
