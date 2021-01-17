@@ -1,6 +1,7 @@
 extends Node2D
 
 signal kid_cleaned
+signal dirt_cleaned
 
 export(PackedScene) var dirt_scene
 export var number_of_dirt_spots: int = 4
@@ -24,7 +25,7 @@ func _ready():
 			randi() % 45 - 22
 		)
 		build_dirt(dirt_group_position)
-			
+
 	var direction = rand_range(-PI, PI)
 	velocity = Vector2(rand_range(min_speed, max_speed), 0).rotated(direction)
 	screen_size = get_viewport_rect().size
@@ -74,5 +75,5 @@ func move_around(delta):
 
 func _on_Dirt_cleaned():
 	my_dirts -= 1
-	print("bye bye dirt, new dirt count is " + str(my_dirts))
+	emit_signal("dirt_cleaned")
 	
