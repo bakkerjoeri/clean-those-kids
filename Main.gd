@@ -13,7 +13,8 @@ enum GameState {
 export(PackedScene) var kid_scene
 export var amount_of_kids: int = 2
 export var time_start = 8
-export var time_per_kid = 4
+export var time_per_kid = 2
+export var time_per_wave = 5
 
 const combo_cooldown_default = 5
 
@@ -53,12 +54,12 @@ func make_random_wave(var wave_number):
 	var kids = []
 	for k in range(0, total_kids):
 		var rand_val = rand_range(0,1.0) 
-		if rand_val < 0.9:
+		if rand_val < 0.6:
 			kids.append(KidType.NORMIE)
-		elif rand_val < 0.98:
+		elif rand_val < 0.9:
 			kids.append(KidType.INFECTIOUS)
 		else:
-			kids.append(KidType.EXTRA_DIRTTY)
+			kids.append(KidType.EXTRA_DIRTY)
 	var wave = Wave.new(kids_on_screen, kids, wave_intro)
 	wave.connect("add_kid", self, "add_kid")
 	waves.append(wave)
@@ -101,7 +102,7 @@ func start_wave(var wave_index):
 	if current_wave_index >= waves.size():
 		make_random_wave(wave_index)
 	current_wave = waves[current_wave_index]
-	time_left += current_wave.total_kid_count * 5
+	time_left += current_wave.total_kid_count * time_per_kid + time_per_wave
 	$HUD.show_message(current_wave.wave_intro)
 	yield(get_tree().create_timer(0.5), "timeout")
 	current_wave.build_wave()
