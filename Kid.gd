@@ -13,17 +13,18 @@ export var max_dirts: int = 128
 enum KidType {
 	NORMIE,
 	INFECTIOUS,
-	EXTRA_DIRTY
+	EXTRA_DIRTY,
 }
 
 var my_dirts = 0
 var is_clean = false
 var velocity: Vector2
 var screen_size: Vector2
+var kid_type
 
 func _ready():
 	# Choose a face!
-	$AnimatedSprite.set_frame(randi() % $AnimatedSprite.frames.get_frame_count("default"))
+	$Face.set_frame(randi() % $Face.frames.get_frame_count("default"))
 	
 	# Span dirt
 	for _p in range(number_of_dirt_spots):
@@ -33,6 +34,14 @@ func _ready():
 	var direction = rand_range(-PI, PI)
 	velocity = Vector2(rand_range(min_speed, max_speed), 0).rotated(direction)
 	screen_size = get_viewport_rect().size
+
+func set_kid_type(type):
+	self.kid_type = type
+
+	if type == KidType.INFECTIOUS:
+		$StinkLines.visible = true
+	else:
+		$StinkLines.visible = false
 
 func is_unoccupied_position(all_dirts, new_pos):
 	for dirt in all_dirts:
@@ -90,6 +99,6 @@ func _on_Dirt_cleaned():
 	
 func _on_Kid_area_entered(other_kid: Area2D):
 	self.velocity = self.velocity.bounce((other_kid.position - self.position).normalized())
-
-	if (other_kid.my_dirts > 0 && other_kid.my_dirts >= self.my_dirts):
-		add_dirt_clump(1)
+	
+	if (self.kid_type == KidType.INFECTIOUS && !is_clean):
+		other_kid.add_dirt_clump(8)
