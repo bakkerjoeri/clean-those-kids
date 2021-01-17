@@ -23,7 +23,7 @@ func _ready():
 	# Choose a face!
 	$Face.set_frame(randi() % $Face.frames.get_frame_count("default"))
 	
-	# Span dirt
+	# Spawn dirt
 	for _p in range(number_of_dirt_spots):
 		add_dirt_clump()
 
