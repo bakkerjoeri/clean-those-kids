@@ -12,6 +12,7 @@ var screen_size: Vector2
 var score: int = 0
 var multiplier: int = 1
 var combo_cooldown: float = combo_cooldown_default
+var time_left: float = 10
 
 var waves = []
 var current_wave
@@ -31,12 +32,14 @@ func _ready():
 		waves.append(Wave.new(kids_on_screen, waves_content, wave_intro))
 	for wave in waves:
 		wave.connect("add_kid", self, "add_kid")
+
 	start_wave(0)
 	
 
 func _process(delta: float):
-	runComboCooldown(delta)
-	updateHud()
+	update_time_left(delta)
+	run_combo_cooldown(delta)
+	update_hud()
 
 func add_kid(kid_type):
 	var kid = kid_scene.instance()
@@ -51,31 +54,37 @@ func add_kid(kid_type):
 func remove_old_kids():
 	for kid in current_kids:
 		kid.queue_free()
-	current_kids.clear()	
+	current_kids.clear()
 
 func start_wave(var wave_index):
 	remove_old_kids()
 	current_wave_index = wave_index
 	current_wave = waves[current_wave_index]
 	current_wave.build_wave()
+	time_left += current_wave.total_kid_count * 5
 	$HUD.show_message(current_wave.wave_intro)
 
-func updateHud():
-	$HUD.set_score(score)
-	$HUD.set_multiplier(multiplier)
-	
-	if (multiplier > 1):
-		$HUD.set_multiplier_cooldown(combo_cooldown / combo_cooldown_default)
-	else:
-		$HUD.set_multiplier_cooldown(0)
+func update_time_left(delta):
+	time_left -= delta
 
-func runComboCooldown(delta: float):
+func run_combo_cooldown(delta: float):
 	if (multiplier > 1):
 		combo_cooldown -= delta
 	
 	if (combo_cooldown <= 0):
 		multiplier = 1
 		combo_cooldown = combo_cooldown_default
+
+func update_hud():
+	$HUD.set_score(score)
+	$HUD.set_multiplier(multiplier)
+	$HUD.set_time_left(time_left)
+	
+	if (multiplier > 1):
+		$HUD.set_multiplier_cooldown(combo_cooldown / combo_cooldown_default)
+	else:
+		$HUD.set_multiplier_cooldown(0)
+
 
 func all_kids_clean():
 	for kid in current_kids:
