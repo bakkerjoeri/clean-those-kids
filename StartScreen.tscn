@@ -30,7 +30,7 @@ margin_right = 64.5
 margin_bottom = 25.0
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Clean! Those KIds!"
+text = "Clean! Those! Kids!"
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
