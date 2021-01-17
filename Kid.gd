@@ -80,10 +80,12 @@ func build_dirt(start_pos:Vector2, amount_of_dirt: int):
 func _process(delta):
 	if (my_dirts > 0):
 		is_clean = false
+		$CleanParticles.emitting = false
 	elif (!is_clean):
 		is_clean = true
 		print("PERFECT KID!")
 		emit_signal("kid_cleaned")
+		$CleanParticles.emitting = true
 		
 	move_around(delta)
 
