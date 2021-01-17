@@ -62,10 +62,13 @@ func build_dirt(start_pos:Vector2, amount_of_dirt: int):
 		dirt.connect("cleaned", self, "_on_Dirt_cleaned")
 
 func _process(delta):
-	if my_dirts == 0 && !is_clean:
+	if (my_dirts > 0):
+		is_clean = false
+	elif (!is_clean):
 		is_clean = true
 		print("PERFECT KID!")
 		emit_signal("kid_cleaned")
+		
 	move_around(delta)
 
 func move_around(delta):
@@ -82,5 +85,5 @@ func _on_Dirt_cleaned():
 func _on_Kid_area_entered(other_kid: Area2D):
 	self.velocity = self.velocity.bounce((other_kid.position - self.position).normalized())
 
-	if (other_kid.my_dirts >= self.my_dirts):
+	if (other_kid.my_dirts > 0 && other_kid.my_dirts >= self.my_dirts):
 		add_dirt_clump(1)
