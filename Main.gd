@@ -27,7 +27,7 @@ func _ready():
 	for k in range(1,10):
 		var wave_intro = "WAVE " + str(k) + " KIDS"		
 		var kids_on_screen = max((k+1)/2,1)
-		var waves_content = [KidType.NORMIE, KidType.NORMIE, KidType.NORMIE]
+		var waves_content = [KidType.NORMIE, KidType.INFECTIOUS, KidType.NORMIE]
 		waves.append(Wave.new(kids_on_screen, waves_content, wave_intro))
 	for wave in waves:
 		wave.connect("add_kid", self, "add_kid")
@@ -38,12 +38,13 @@ func _process(delta: float):
 	runComboCooldown(delta)
 	updateHud()
 
-func add_kid():
+func add_kid(kid_type):
 	var kid = kid_scene.instance()
 	# Set kid to random position within screen
 	kid.position = (screen_size - Vector2(48,48)) * rand_range(0,1) + Vector2(24,24)
 	kid.connect("kid_cleaned", self, "_on_Kid_cleaned")
 	kid.connect("dirt_cleaned", self, "_on_Dirt_cleaned")
+	kid.set_kid_type(kid_type)
 	add_child(kid)
 	current_kids.append(kid)
 	

@@ -1,5 +1,7 @@
 extends Node2D
 
+const KidType = preload("KidTypeEnum.gd").KidType
+
 signal kid_cleaned
 signal dirt_cleaned
 

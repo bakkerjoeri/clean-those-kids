@@ -1,7 +1,7 @@
 extends Object
 
 
-signal add_kid
+signal add_kid(kid_type)
 
 var initial_kid_count:int
 var kids_to_spawn:Array
@@ -27,7 +27,7 @@ func is_wave_finished():
 	return self.kids_cleaned >= total_kid_count	
 		
 func add_kid(var kid_type):
-	emit_signal("add_kid")
+	emit_signal("add_kid", kid_type)
 	kids_added += 1	
 
 func build_wave():
