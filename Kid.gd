@@ -10,6 +10,12 @@ export var min_speed: int = 30
 export var max_speed: int = 50
 export var max_dirts: int = 128
 
+enum KidType {
+	NORMIE,
+	INFECTIOUS,
+	EXTRA_DIRTY
+}
+
 var my_dirts = 0
 var is_clean = false
 var velocity: Vector2
