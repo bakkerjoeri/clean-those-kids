@@ -45,6 +45,7 @@ func _on_Kid_cleaned():
 	add_kid()
 	multiplier += 1
 	combo_cooldown = combo_cooldown_default
+	$HUD.show_message("KID CLEANED")
 
 func _on_Dirt_cleaned():
 	score += multiplier
