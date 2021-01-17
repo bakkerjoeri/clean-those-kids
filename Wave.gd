@@ -1,7 +1,5 @@
 extends Object
 
-const KidType = preload("KidTypeEnum.gd")
-
 
 signal add_kid
 
@@ -29,7 +27,6 @@ func is_wave_finished():
 	return self.kids_cleaned >= total_kid_count	
 		
 func add_kid(var kid_type):
-	KidType.NORMIE
 	emit_signal("add_kid")
 	kids_added += 1	
 

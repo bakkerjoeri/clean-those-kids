@@ -1,6 +1,8 @@
 extends Node
 
 const Wave = preload("Wave.gd")
+const KidType = preload("KidTypeEnum.gd").KidType
+
 export(PackedScene) var kid_scene
 export var amount_of_kids: int = 2
 
@@ -21,10 +23,12 @@ var current_kids = []
 func _ready():
 	randomize()
 	screen_size = get_viewport().size
+	
 	for k in range(1,10):
 		var wave_intro = "WAVE " + str(k) + " KIDS"		
 		var kids_on_screen = max((k+1)/2,1)
-		waves.append(Wave.new(kids_on_screen, k, wave_intro))
+		var waves_content = [KidType.NORMIE, KidType.NORMIE, KidType.NORMIE]
+		waves.append(Wave.new(kids_on_screen, waves_content, wave_intro))
 	for wave in waves:
 		wave.connect("add_kid", self, "add_kid")
 	start_wave(0)
@@ -88,4 +92,3 @@ func _on_Kid_cleaned():
 
 func _on_Dirt_cleaned():
 	score += multiplier
-	print("+" + str(multiplier) + " -> " + str(score))
