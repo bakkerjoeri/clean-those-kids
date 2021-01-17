@@ -22,7 +22,8 @@ func _ready():
 	randomize()
 	screen_size = get_viewport().size
 	for k in range(1,10):
-		waves.append(Wave.new(k))
+		var wave_intro = "WAVE " + str(k) + " KIDS"		
+		waves.append(Wave.new(k, wave_intro))
 	for wave in waves:
 		wave.connect("add_kid", self, "add_kid")
 	start_wave(0)
@@ -51,6 +52,7 @@ func start_wave(var wave_index):
 	current_wave_index = wave_index
 	current_wave = waves[current_wave_index]
 	current_wave.build_wave()
+	$HUD.show_message(current_wave.wave_intro)
 
 func updateHud():
 	$HUD.set_score(score)
@@ -70,12 +72,12 @@ func runComboCooldown(delta: float):
 		combo_cooldown = combo_cooldown_default
 
 func _on_Kid_cleaned():
-	current_wave.on_Kid_cleaned()
-	if current_wave.is_wave_finished():
-		start_wave(current_wave_index+1) 
 	multiplier += 1
 	combo_cooldown = combo_cooldown_default
 	$HUD.show_message("KID CLEANED")
+	current_wave.on_Kid_cleaned()
+	if current_wave.is_wave_finished():
+		start_wave(current_wave_index+1) 
 
 func _on_Dirt_cleaned():
 	score += multiplier
