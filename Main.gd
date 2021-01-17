@@ -25,15 +25,35 @@ func _ready():
 	randomize()
 	screen_size = get_viewport().size
 	
-	for k in range(1,10):
-		var wave_intro = "WAVE " + str(k) + " KIDS"		
-		var kids_on_screen = max((k+1)/2,2)
-		var waves_content = [KidType.EXTRA_DIRTY, KidType.INFECTIOUS, KidType.NORMIE]
-		waves.append(Wave.new(kids_on_screen, waves_content, wave_intro))
+	waves = [Wave.new(1, [KidType.NORMIE], "CLEAN!  THOSE!  KIDS!"),
+			Wave.new(2, [KidType.NORMIE, KidType.NORMIE], "WAVE 2 KIDS"),
+			Wave.new(1, [KidType.NORMIE, KidType.NORMIE, KidType.INFECTIOUS], "WAVE 3 KIDS"),
+			Wave.new(2, [KidType.NORMIE, KidType.EXTRA_DIRTY, KidType.INFECTIOUS, KidType.INFECTIOUS], "WAVE 4 GET READY"),
+			Wave.new(2, [KidType.INFECTIOUS, KidType.EXTRA_DIRTY, KidType.INFECTIOUS, KidType.INFECTIOUS], "WAVE 5 BOSS KID")]
+	
+	
 	for wave in waves:
 		wave.connect("add_kid", self, "add_kid")
 
 	start_wave(0)
+
+
+func make_random_wave(var wave_number):
+	var kids_on_screen = max(log(wave_number+1),2)
+	var total_kids = max(wave_number/2+4,2)	
+	var wave_intro = "WAVE " + str(wave_number+1) + " KIDS"
+	var kids = []
+	for k in range(0, total_kids):
+		var rand_val = rand_range(0,1.0) 
+		if rand_val < 0.9:
+			kids.append(KidType.NORMIE)
+		elif rand_val < 0.98:
+			kids.append(KidType.INFECTIOUS)
+		else:
+			kids.append(KidType.EXTRA_DIRTTY)
+	var wave = Wave.new(kids_on_screen, kids, wave_intro)
+	wave.connect("add_kid", self, "add_kid")
+	waves.append(wave)
 	
 
 func _process(delta: float):
@@ -59,6 +79,8 @@ func remove_old_kids():
 func start_wave(var wave_index):
 	remove_old_kids()
 	current_wave_index = wave_index
+	if current_wave_index >= waves.size():
+		make_random_wave(wave_index)
 	current_wave = waves[current_wave_index]
 	current_wave.build_wave()
 	time_left += current_wave.total_kid_count * 5
