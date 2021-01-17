@@ -23,7 +23,8 @@ func _ready():
 	screen_size = get_viewport().size
 	for k in range(1,10):
 		var wave_intro = "WAVE " + str(k) + " KIDS"		
-		waves.append(Wave.new(k, wave_intro))
+		var kids_on_screen = max((k+1)/2,1)
+		waves.append(Wave.new(kids_on_screen, k, wave_intro))
 	for wave in waves:
 		wave.connect("add_kid", self, "add_kid")
 	start_wave(0)
