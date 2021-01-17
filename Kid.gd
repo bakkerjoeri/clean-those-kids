@@ -13,7 +13,6 @@ export var min_speed: int = 30
 export var max_speed: int = 50
 export var max_dirts: int = 128
 
-
 var my_dirts = 0
 var is_clean = false
 var velocity: Vector2
@@ -23,7 +22,6 @@ var kid_type
 func _ready():
 	# Choose a face!
 	$Face.set_frame(randi() % $Face.frames.get_frame_count("default"))
-	
 
 	# Start moving
 	var direction = rand_range(-PI, PI)
@@ -104,4 +102,4 @@ func _on_Kid_area_entered(other_kid: Area2D):
 	self.velocity = self.velocity.bounce((other_kid.position - self.position).normalized())
 	
 	if (self.kid_type == KidType.INFECTIOUS && !is_clean):
-		other_kid.add_dirt_clump(8)
+		other_kid.call_deferred("add_dirt_clump", 8)
