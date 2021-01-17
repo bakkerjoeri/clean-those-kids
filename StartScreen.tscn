@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/slapface.tres" type="DynamicFont" id=1]
 [ext_resource path="res://StartScreen.gd" type="Script" id=2]
+[ext_resource path="res://Hand.tscn" type="PackedScene" id=3]
 
 [node name="StartScreen" type="Node"]
 script = ExtResource( 2 )
@@ -35,4 +36,6 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Hand" parent="." instance=ExtResource( 3 )]
 [connection signal="pressed" from="StartGameButton" to="." method="_on_StartGameButton_pressed"]
