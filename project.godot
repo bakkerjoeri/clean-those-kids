@@ -29,6 +29,10 @@ window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
+[gui]
+
+theme/use_hidpi=true
+
 [input]
 
 ui_clean={

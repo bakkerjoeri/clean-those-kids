@@ -17,6 +17,10 @@ func _ready():
 	for _k in range(amount_of_kids):
 		add_kid()
 
+func _process(delta: float):
+	runComboCooldown(delta)
+	updateHud()
+
 func add_kid():
 	var kid = kid_scene.instance()
 	# Set kid to random position within screen
@@ -25,9 +29,22 @@ func add_kid():
 	kid.connect("dirt_cleaned", self, "_on_Dirt_cleaned")
 	add_child(kid)
 
+func updateHud():
+	$HUD.set_score(score)
+	$HUD.set_multiplier(multiplier)
+
+func runComboCooldown(delta: float):
+	if (multiplier > 1):
+		combo_cooldown -= delta
+	
+	if (combo_cooldown <= 0):
+		multiplier = 1
+		combo_cooldown = combo_cooldown_default
+
 func _on_Kid_cleaned():
 	add_kid()
 	multiplier += 1
+	combo_cooldown = combo_cooldown_default
 
 func _on_Dirt_cleaned():
 	score += multiplier
