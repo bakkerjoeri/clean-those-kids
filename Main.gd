@@ -12,10 +12,10 @@ enum GameState {
 
 export(PackedScene) var kid_scene
 export var amount_of_kids: int = 2
+export var time_start = 8
+export var time_per_kid = 4
 
 const combo_cooldown_default = 5
-const time_start = 1
-const time_per_kid = 0
 
 var current_state = GameState.START
 var screen_size: Vector2
