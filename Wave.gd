@@ -1,35 +1,40 @@
 extends Object
 
+const KidType = preload("KidTypeEnum.gd")
+
 
 signal add_kid
 
 var initial_kid_count:int
-var total_kid_count:int
+var kids_to_spawn:Array
 var kids_cleaned:int
+var total_kid_count
 var kids_added:int
 var wave_intro
 
-func _init(var initial_kid_count, var total_kid_count, var wave_intro):
+func _init(var initial_kid_count, var kids_to_spawn, var wave_intro):
 	self.initial_kid_count = initial_kid_count
-	self.total_kid_count = total_kid_count
+	self.kids_to_spawn = kids_to_spawn
+	self.total_kid_count = kids_to_spawn.size()
 	self.kids_cleaned = 0
 	self.kids_added = 0
 	self.wave_intro = wave_intro
 	
 func on_Kid_cleaned():
 	self.kids_cleaned += 1
-	if self.kids_added < self.total_kid_count:
-		add_kid()
+	if self.kids_to_spawn.size() > 0:
+		add_kid(kids_to_spawn.pop_front())
 
 func is_wave_finished():
 	return self.kids_cleaned >= total_kid_count	
 		
-func add_kid():
+func add_kid(var kid_type):
+	KidType.NORMIE
 	emit_signal("add_kid")
 	kids_added += 1	
 
 func build_wave():
 	for _k in range(self.initial_kid_count):
-		add_kid()
+		add_kid(kids_to_spawn.pop_front())
 
 			
