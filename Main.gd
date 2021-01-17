@@ -72,12 +72,18 @@ func runComboCooldown(delta: float):
 		multiplier = 1
 		combo_cooldown = combo_cooldown_default
 
+func all_kids_clean():
+	for kid in current_kids:
+		if not kid.is_clean:
+			return false
+	return true
+
 func _on_Kid_cleaned():
 	multiplier += 1
 	combo_cooldown = combo_cooldown_default
 	$HUD.show_message("KID CLEANED")
 	current_wave.on_Kid_cleaned()
-	if current_wave.is_wave_finished():
+	if current_wave.is_wave_finished() and all_kids_clean():
 		start_wave(current_wave_index+1) 
 
 func _on_Dirt_cleaned():
