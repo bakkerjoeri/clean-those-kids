@@ -26,8 +26,8 @@ func _ready():
 	
 	for k in range(1,10):
 		var wave_intro = "WAVE " + str(k) + " KIDS"		
-		var kids_on_screen = max((k+1)/2,1)
-		var waves_content = [KidType.NORMIE, KidType.INFECTIOUS, KidType.NORMIE]
+		var kids_on_screen = max((k+1)/2,2)
+		var waves_content = [KidType.EXTRA_DIRTY, KidType.INFECTIOUS, KidType.NORMIE]
 		waves.append(Wave.new(kids_on_screen, waves_content, wave_intro))
 	for wave in waves:
 		wave.connect("add_kid", self, "add_kid")

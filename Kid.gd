@@ -7,6 +7,7 @@ signal dirt_cleaned
 
 export(PackedScene) var dirt_scene
 export var number_of_dirt_spots: int = 4
+export var dirty_kid_number_of_dirt_spots: int = 8
 export var dirt_per_spot: int = 16
 export var min_speed: int = 30
 export var max_speed: int = 50
@@ -23,9 +24,6 @@ func _ready():
 	# Choose a face!
 	$Face.set_frame(randi() % $Face.frames.get_frame_count("default"))
 	
-	# Spawn dirt
-	for _p in range(number_of_dirt_spots):
-		add_dirt_clump()
 
 	# Start moving
 	var direction = rand_range(-PI, PI)
@@ -39,6 +37,12 @@ func set_kid_type(type):
 		$StinkLines.visible = true
 	else:
 		$StinkLines.visible = false
+	
+	var dirt_spot_to_spawn = 	self.dirty_kid_number_of_dirt_spots if type== KidType.EXTRA_DIRTY else self.number_of_dirt_spots
+	# Spawn dirt
+	for _p in range(dirt_spot_to_spawn):
+		add_dirt_clump()
+
 
 func is_unoccupied_position(all_dirts, new_pos):
 	for dirt in all_dirts:
