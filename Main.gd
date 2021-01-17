@@ -32,6 +32,11 @@ func add_kid():
 func updateHud():
 	$HUD.set_score(score)
 	$HUD.set_multiplier(multiplier)
+	
+	if (multiplier > 1):
+		$HUD.set_multiplier_cooldown(combo_cooldown / combo_cooldown_default)
+	else:
+		$HUD.set_multiplier_cooldown(0)
 
 func runComboCooldown(delta: float):
 	if (multiplier > 1):
