@@ -1,37 +1,45 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/face.png" type="Texture" id=1]
 [ext_resource path="res://Kid.gd" type="Script" id=2]
 [ext_resource path="res://Dirt.tscn" type="PackedScene" id=3]
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
 region = Rect2( 48, 0, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 1 )
 region = Rect2( 96, 0, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 1 )
 region = Rect2( 144, 0, 48, 48 )
 
-[sub_resource type="SpriteFrames" id=6]
+[sub_resource type="SpriteFrames" id=5]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
 
-[node name="Kid" type="Node2D"]
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 16, 22 )
+
+[node name="Kid" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource( 2 )
 dirt_scene = ExtResource( 3 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0.131767, 0.0658836 )
-frames = SubResource( 6 )
+frames = SubResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 6 )
+[connection signal="area_entered" from="." to="." method="_on_Kid_area_entered"]
