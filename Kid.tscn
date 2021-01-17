@@ -6,31 +6,31 @@
 [ext_resource path="res://assets/stinklines.png" type="Texture" id=4]
 [ext_resource path="res://assets/design/sparkle.png" type="Texture" id=5]
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=11]
+[sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
 region = Rect2( 48, 0, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=12]
+[sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 1 )
 region = Rect2( 96, 0, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=13]
+[sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 1 )
 region = Rect2( 144, 0, 48, 48 )
 
-[sub_resource type="SpriteFrames" id=14]
+[sub_resource type="SpriteFrames" id=5]
 animations = [ {
-"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=15]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 16, 22 )
 
 [sub_resource type="AtlasTexture" id=7]
@@ -48,7 +48,7 @@ flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 96, 0, 48, 16 )
 
-[sub_resource type="SpriteFrames" id=16]
+[sub_resource type="SpriteFrames" id=10]
 animations = [ {
 "frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
 "loop": true,
@@ -56,7 +56,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="CanvasItemMaterial" id=17]
+[sub_resource type="CanvasItemMaterial" id=11]
 particles_animation = true
 particles_anim_h_frames = 5
 particles_anim_v_frames = 1
@@ -69,20 +69,20 @@ script = ExtResource( 2 )
 dirt_scene = ExtResource( 3 )
 
 [node name="Face" type="AnimatedSprite" parent="."]
-frames = SubResource( 14 )
+frames = SubResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 15 )
+shape = SubResource( 6 )
 
 [node name="StinkLines" type="AnimatedSprite" parent="."]
 visible = false
 position = Vector2( 0, -31 )
-frames = SubResource( 16 )
-frame = 2
+frames = SubResource( 10 )
+frame = 1
 playing = true
 
 [node name="CleanParticles" type="CPUParticles2D" parent="."]
-material = SubResource( 17 )
+material = SubResource( 11 )
 emitting = false
 amount = 7
 lifetime = 2.0
