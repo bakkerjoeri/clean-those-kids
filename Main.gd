@@ -101,9 +101,10 @@ func start_wave(var wave_index):
 	if current_wave_index >= waves.size():
 		make_random_wave(wave_index)
 	current_wave = waves[current_wave_index]
-	current_wave.build_wave()
-	time_left += current_wave.total_kid_count * time_per_kid
+	time_left += current_wave.total_kid_count * 5
 	$HUD.show_message(current_wave.wave_intro)
+	yield(get_tree().create_timer(0.5), "timeout")
+	current_wave.build_wave()
 
 func update_time_left(delta):
 	time_left -= delta
