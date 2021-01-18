@@ -131,7 +131,7 @@ func start_wave(wave_index:int):
 	remove_old_kids()
 	advance_wave(wave_index)
 	initialize_spawn_location_order()
-	time_left += current_wave.total_kid_count * time_per_kid + time_per_wave
+	time_left += time_per_wave
 	$HUD.show_message(current_wave.wave_intro)
 	yield(get_tree().create_timer(0.5), "timeout")
 	current_wave.build_wave()
@@ -170,7 +170,7 @@ func _on_Kid_cleaned(kid):
 	# Add multiplier and reset its cooldown
 	multiplier += 1
 	combo_cooldown = combo_cooldown_default
-	
+	self.time_left += time_per_kid
 	# Create the message that the kid was cleaned
 	var kid_cleaned_message = KidCleanMessage.instance()
 	kid_cleaned_message.position = kid.position - Vector2(0, 24)
