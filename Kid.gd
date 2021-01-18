@@ -126,7 +126,7 @@ func move_around(delta):
 	position += velocity * delta
 	if position.x < 24 or position.x > screen_size.x - 24:
 		velocity.x = -velocity.x
-	if position.y < 24 or position.y > screen_size.y - 24:
+	if position.y < 48 or position.y > screen_size.y - 24:
 		velocity.y = -velocity.y
 
 func _on_Dirt_cleaned():
