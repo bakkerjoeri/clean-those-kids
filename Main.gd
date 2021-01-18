@@ -45,11 +45,16 @@ func _ready():
 	randomize()
 	screen_size = get_viewport().size
 	startPositions = $BorderStartPositions.get_children()
-	waves = [Wave.new(1, [KidType.NORMIE], "CLEAN!  THOSE!  KIDS!"),
-			Wave.new(2, [KidType.NORMIE, KidType.NORMIE], "WAVE 2 KIDS"),
-			Wave.new(1, [KidType.NORMIE, KidType.NORMIE, KidType.INFECTIOUS], "WAVE 3 KIDS"),
-			Wave.new(2, [KidType.NORMIE, KidType.EXTRA_DIRTY, KidType.INFECTIOUS, KidType.INFECTIOUS], "WAVE 4 GET READY"),
-			Wave.new(2, [KidType.INFECTIOUS, KidType.EXTRA_DIRTY, KidType.INFECTIOUS, KidType.INFECTIOUS], "WAVE 5 BOSS KID")]
+	waves = [Wave.new(1, [KidType.NORMIE], 1, "CLEAN!  THOSE!  KIDS!"),
+			Wave.new(2, [KidType.NORMIE, KidType.NORMIE], 1, "WAVE 2 KIDS"),
+			Wave.new(1, [KidType.NORMIE, KidType.NORMIE, KidType.NORMIE], 2, "WAVE 3 KIDS"),
+			Wave.new(2, [KidType.FAST, KidType.NORMIE, KidType.FAST], 1, "2 FAST 4 KIDS"),
+			Wave.new(1, [KidType.NORMIE, KidType.NORMIE, KidType.NORMIE, KidType.INFECTIOUS], 2, "WATCH OUT: DIRTY KIDS"),
+			Wave.new(2, [KidType.NORMIE, KidType.EXTRA_DIRTY, KidType.FAST, KidType.INFECTIOUS], 1, "MORE KIDS FOR WAVE 6"),
+			Wave.new(3, [KidType.NORMIE, KidType.FAST, KidType.NORMIE, KidType.FAST, KidType.INFECTIOUS, KidType.FAST], 2, "6 KIDS: WAVE 7 KIDS"),
+			Wave.new(2, [KidType.NORMIE, KidType.NORMIE, KidType.INFECTIOUS, KidType.INFECTIOUS], 2, "WAVE 8 KIDS: DOUBLE DIRTY"),
+			Wave.new(1, [KidType.FAST, KidType.FAST, KidType.FAST], 1, "WAVE 9 KIDS: BOSS WAVE IMMINENT"),
+			Wave.new(2, [KidType.INFECTIOUS, KidType.EXTRA_DIRTY, KidType.INFECTIOUS, KidType.INFECTIOUS_FAST], 2, "WAVE 10 BOSS KID")]
 	
 	for wave in waves:
 		wave.connect("add_kid", self, "add_kid")
@@ -69,7 +74,7 @@ func make_random_wave(var wave_number):
 			kids.append(KidType.INFECTIOUS)
 		else:
 			kids.append(KidType.EXTRA_DIRTY)
-	var wave = Wave.new(kids_on_screen, kids, wave_intro)
+	var wave = Wave.new(kids_on_screen, kids, 2, wave_intro)
 	wave.connect("add_kid", self, "add_kid")
 	waves.append(wave)
 	
@@ -89,7 +94,7 @@ func _process(delta: float):
 		self.add_child(game_over_screen)
 		$HUD.hide()
 		$Hand/CollisionShape2D.set_deferred("disabled", true)
-		$Background/Animation.stop()
+		$Background.stop()
 
 func is_game_over() -> bool:
 	return time_left <= 0
@@ -106,6 +111,7 @@ func add_kid(kid_type, spawn_in_center:bool):
 		
 		kid.position = kid.start_pos - (screen_size/2 - kid.start_pos)*1.5
 	kid.connect("kid_cleaned", self, "_on_Kid_cleaned")
+	kid.connect("kid_cleaned_first_time", self, "_on_Kid_cleaned_first_time")
 	kid.connect("dirt_cleaned", self, "_on_Dirt_cleaned")
 	kid.connect("dirt_clump_spawned", self, "_on_Dirt_spawned")
 	kid.connect("kid_start_moving", self, "_on_Kid_start_moving")
@@ -189,11 +195,13 @@ func all_kids_clean():
 func _on_Dirt_spawned():
 	$ShakeCamera.shake(6)
 
+func _on_Kid_cleaned_first_time():
+	self.time_left += time_per_kid
+
 func _on_Kid_cleaned(kid):
 	# Add multiplier and reset its cooldown
 	multiplier += 1
 	combo_cooldown = combo_cooldown_default
-	self.time_left += time_per_kid
 	# Create the message that the kid was cleaned
 	var kid_cleaned_message = KidCleanMessage.instance()
 	kid_cleaned_message.position = kid.position - Vector2(0, 24)
@@ -249,7 +257,7 @@ func _on_Tween2_tween_completed(object, key):
 
 func _on_Kid_start_moving():
 	# Start animating the backgound if it didn't yet
-	$Background/Animation.play("Movement")
+	$Background.play()
 
 	if current_state == GameState.WAVE_TRANSITION:
 		current_state = GameState.PLAY
