@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Node2D
 
 const multiplier_colors = [
 	Color("#ed7a42"),
@@ -45,8 +45,8 @@ func set_time_left(var time_left: float):
 	$TimerContainer.set_time_left(time_left)
 
 func show_message(var message):
-	$Message.text = message
-	$Message/AnimationPlayer.play("ShowMessage")
+	$MessageNode/Message.text = message
+	$MessageNode/Message/AnimationPlayer.play("ShowMessage")
 
 func set_multiplier_cooldown(var cooldown_percentage: float):
 	self.multiplier_true_val = cooldown_percentage
