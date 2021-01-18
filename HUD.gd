@@ -19,12 +19,7 @@ func set_multiplier(var multiplier: int):
 	$Multiplier.text = str(multiplier) + "x"
 
 func set_time_left(var time_left: float):
-	var rounded_time = ceil(time_left)
-	
-	if (rounded_time == 1):
-		$Timer.text = str(rounded_time) + " second left"
-	else:
-		$Timer.text = str(rounded_time) + " seconds left"
+	$TimerContainer.set_time_left(time_left)
 
 func show_message(var message):
 	$Message.text = message
