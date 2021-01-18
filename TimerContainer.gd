@@ -15,9 +15,9 @@ func set_time_left(time_left:float):
 	var rounded_time = ceil(time_left)
 		
 	if (rounded_time == 1):
-		$Timer.text = str(rounded_time) + " second left"
+		$Timer.text = str(rounded_time) + " second "
 	else:
-		$Timer.text = str(rounded_time) + " seconds left"
+		$Timer.text = str(rounded_time) + " seconds"
 	if rounded_time <= 5 and not self.is_shaking:
 		shake_start()
 	if rounded_time > 5 and self.is_shaking:
