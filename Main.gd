@@ -3,6 +3,7 @@ extends Node
 const GameOverScreen = preload("res://GameOverScreen.tscn")
 const Wave = preload("Wave.gd")
 const KidType = preload("KidTypeEnum.gd").KidType
+const KidCleanMessage = preload("KidCleanMessage.tscn")
 
 enum GameState {
 	START,
@@ -156,11 +157,20 @@ func _on_Dirt_spawned():
 	$ShakeCamera.shake(6)
 
 func _on_Kid_cleaned(kid):
+	# Add multiplier and reset its cooldown
 	multiplier += 1
 	combo_cooldown = combo_cooldown_default
-	$HUD.show_message("KID CLEANED")
-	current_wave.on_Kid_cleaned()
+	
+	# Create the message that the kid was cleaned
+	var kid_cleaned_message = KidCleanMessage.instance()
+	kid_cleaned_message.position = kid.position - Vector2(0, 24)
+	self.add_child(kid_cleaned_message)
+	
+	# Show screen flash of cleanliness
 	do_kid_flash(kid.position)
+	
+	# Talk to the current wave
+	current_wave.on_Kid_cleaned()
 	if current_wave.is_wave_finished() and all_kids_clean():
 		start_wave(current_wave_index+1) 
 		

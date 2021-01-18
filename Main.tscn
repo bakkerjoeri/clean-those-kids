@@ -7,7 +7,7 @@
 [ext_resource path="res://ShakeCamera.gd" type="Script" id=5]
 [ext_resource path="res://flash.shader" type="Shader" id=6]
 
-[sub_resource type="ShaderMaterial" id=2]
+[sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 6 )
 shader_param/screen_width = 320.0
 shader_param/screen_height = 180.0
@@ -25,7 +25,7 @@ layer = 3
 
 [node name="FLASH" type="ColorRect" parent="ScreenEffect"]
 visible = false
-material = SubResource( 2 )
+material = SubResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
