@@ -3,7 +3,7 @@ extends Node2D
 const KidType = preload("KidTypeEnum.gd").KidType
 const DirtParticles = preload("DirtParticles.tscn")
 
-signal kid_cleaned
+signal kid_cleaned(kid)
 signal dirt_cleaned
 signal dirt_clump_spawned
 
@@ -110,7 +110,7 @@ func _process(delta):
 		elif (!is_clean):
 			is_clean = true
 			print("PERFECT KID!")
-			emit_signal("kid_cleaned")
+			emit_signal("kid_cleaned", self)
 			$CleanParticles.emitting = true
 			
 		move_around(delta)

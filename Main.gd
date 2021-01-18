@@ -155,13 +155,40 @@ func all_kids_clean():
 func _on_Dirt_spawned():
 	$ShakeCamera.shake(6)
 
-func _on_Kid_cleaned():
+func _on_Kid_cleaned(kid):
 	multiplier += 1
 	combo_cooldown = combo_cooldown_default
 	$HUD.show_message("KID CLEANED")
 	current_wave.on_Kid_cleaned()
+	do_kid_flash(kid.position)
 	if current_wave.is_wave_finished() and all_kids_clean():
 		start_wave(current_wave_index+1) 
+		
+func do_kid_flash(position):
+	print("flash")
+	var flash = $ScreenEffect/FLASH
+	flash.show()
+	var tween = $ScreenEffect/Tween
+	var tween2 = $ScreenEffect/Tween2
+	position = position/self.screen_size
+	position.y = 1-position.y
+	flash.get_material().set_shader_param("center_pos", position)
+	tween.interpolate_property(flash.get_material(), 
+						   "shader_param/size", 
+						  0.1, 0.2, 0.4, 
+						   Tween.TRANS_LINEAR, Tween.EASE_IN)
+	tween2.interpolate_property(flash.get_material(), 
+						   "shader_param/strength", 
+						  1.0, 0.0, 0.4, 
+						   Tween.TRANS_LINEAR, Tween.EASE_IN)
+	tween.start()
+	tween2.start()
+	
 
 func _on_Dirt_cleaned():
 	score += multiplier
+
+
+func _on_Tween2_tween_completed(object, key):
+	var flash = $ScreenEffect/FLASH
+	flash.hide()
