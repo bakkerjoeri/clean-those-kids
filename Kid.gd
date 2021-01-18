@@ -13,20 +13,42 @@ export var min_speed: int = 30
 export var max_speed: int = 50
 export var max_dirts: int = 128
 
+enum KidState {
+	ENTERING,
+	ACTIVE
+}
+
 var my_dirts = 0
 var is_clean = false
 var velocity: Vector2
 var screen_size: Vector2
 var kid_type
+var cur_state
+
+var start_pos:Vector2
 
 func _ready():
 	# Choose a face!
 	$Face.set_frame(randi() % $Face.frames.get_frame_count("default"))
-
-	# Start moving
+	screen_size = get_viewport_rect().size
+	
+	cur_state = KidState.ENTERING
+	var tween = $EnterTween
+	tween.interpolate_property(self, "position", self.position, 
+							start_pos, 1, 
+							Tween.TRANS_LINEAR, Tween.EASE_IN_OUT) 
+	tween.start()
+	
+	# Set direction
 	var direction = rand_range(-PI, PI)
 	velocity = Vector2(rand_range(min_speed, max_speed), 0).rotated(direction)
-	screen_size = get_viewport_rect().size
+
+
+func add_initial_dirt_clumps():
+	var spawn_count = self.dirty_kid_number_of_dirt_spots if self.kid_type== KidType.EXTRA_DIRTY else self.number_of_dirt_spots
+	# Spawn dirt
+	for _p in range(spawn_count):
+		add_dirt_clump()
 
 func set_kid_type(type):
 	self.kid_type = type
@@ -36,10 +58,7 @@ func set_kid_type(type):
 	else:
 		$StinkLines.visible = false
 	
-	var dirt_spot_to_spawn = 	self.dirty_kid_number_of_dirt_spots if type== KidType.EXTRA_DIRTY else self.number_of_dirt_spots
-	# Spawn dirt
-	for _p in range(dirt_spot_to_spawn):
-		add_dirt_clump()
+
 
 
 func is_unoccupied_position(all_dirts, new_pos):
@@ -76,16 +95,17 @@ func build_dirt(start_pos:Vector2, amount_of_dirt: int):
 		dirt.connect("cleaned", self, "_on_Dirt_cleaned")
 
 func _process(delta):
-	if (my_dirts > 0):
-		is_clean = false
-		$CleanParticles.emitting = false
-	elif (!is_clean):
-		is_clean = true
-		print("PERFECT KID!")
-		emit_signal("kid_cleaned")
-		$CleanParticles.emitting = true
-		
-	move_around(delta)
+	if cur_state == KidState.ACTIVE:
+		if (my_dirts > 0):
+			is_clean = false
+			$CleanParticles.emitting = false
+		elif (!is_clean):
+			is_clean = true
+			print("PERFECT KID!")
+			emit_signal("kid_cleaned")
+			$CleanParticles.emitting = true
+			
+		move_around(delta)
 
 func move_around(delta):
 	position += velocity * delta
@@ -103,3 +123,11 @@ func _on_Kid_area_entered(other_kid: Area2D):
 	
 	if (self.kid_type == KidType.INFECTIOUS && !is_clean):
 		other_kid.call_deferred("add_dirt_clump", 8)
+
+
+func _on_EnterTween_tween_completed(object, key):
+	yield(get_tree().create_timer(1), "timeout")
+	add_initial_dirt_clumps()
+	yield(get_tree().create_timer(1), "timeout")
+	cur_state = KidState.ACTIVE
+	

@@ -87,10 +87,13 @@ func add_kid(kid_type, spawn_in_center:bool):
 	var kid = kid_scene.instance()
 
 	if spawn_in_center:
-		kid.position = $CenterStartPos.position
+		kid.start_pos = $CenterStartPos.position
+		kid.position = Vector2(350, kid.start_pos.y)
 	else:
-		kid.position = startPositions[cur_start_pos_index].position
+		kid.start_pos = startPositions[cur_start_pos_index].position
 		cur_start_pos_index = (cur_start_pos_index + 1) % startPositions.size()
+		
+		kid.position = kid.start_pos - (screen_size/2 - kid.start_pos)*1.5
 	kid.connect("kid_cleaned", self, "_on_Kid_cleaned")
 	kid.connect("dirt_cleaned", self, "_on_Dirt_cleaned")
 	kid.set_kid_type(kid_type)
