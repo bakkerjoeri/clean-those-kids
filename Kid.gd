@@ -5,6 +5,7 @@ const DirtParticles = preload("DirtParticles.tscn")
 
 signal kid_cleaned
 signal dirt_cleaned
+signal dirt_clump_spawned
 
 export(PackedScene) var dirt_scene
 export var number_of_dirt_spots: int = 2
@@ -55,9 +56,12 @@ func add_dirt_clump(amount_of_dirt: int = dirt_per_spot):
 func build_dirt(start_pos:Vector2, amount_of_dirt: int):
 	var all_dirts = []
 	
+	# Emit some dirt cloud particles
 	var dirt_particle_emitter = DirtParticles.instance()
 	dirt_particle_emitter.position = start_pos
 	self.add_child(dirt_particle_emitter)
+	
+	emit_signal("dirt_clump_spawned")
 	
 	while all_dirts.size() < amount_of_dirt:
 		if (my_dirts > max_dirts):

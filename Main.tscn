@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Kid.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Hand.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Main.gd" type="Script" id=3]
 [ext_resource path="res://HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ShakeCamera.gd" type="Script" id=5]
 
 [node name="Main" type="Node"]
 script = ExtResource( 3 )
@@ -13,3 +14,9 @@ kid_scene = ExtResource( 1 )
 position = Vector2( 150.952, -62.7811 )
 
 [node name="HUD" parent="." instance=ExtResource( 4 )]
+follow_viewport_enable = true
+
+[node name="ShakeCamera" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+script = ExtResource( 5 )
