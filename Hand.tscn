@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/hand.png" type="Texture" id=1]
 [ext_resource path="res://Hand.gd" type="Script" id=2]
+[ext_resource path="res://assets/moisture-left.png" type="Texture" id=3]
+[ext_resource path="res://assets/moisture-right.png" type="Texture" id=4]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -14,6 +16,12 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=2]
 radius = 4.16558
 
+[sub_resource type="CanvasItemMaterial" id=3]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
 [node name="Hand" type="Area2D"]
 z_index = 1
 script = ExtResource( 2 )
@@ -25,3 +33,30 @@ offset = Vector2( -6, -8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
+
+[node name="DropsRight" type="CPUParticles2D" parent="."]
+material = SubResource( 3 )
+position = Vector2( 13, 3 )
+amount = 3
+lifetime = 0.75
+local_coords = false
+texture = ExtResource( 4 )
+direction = Vector2( 5, 0 )
+gravity = Vector2( 0, 100 )
+initial_velocity = 40.0
+initial_velocity_random = 0.55
+anim_speed = 1.25
+
+[node name="DropsLeft" type="CPUParticles2D" parent="."]
+material = SubResource( 3 )
+position = Vector2( -10, 3 )
+amount = 3
+lifetime = 0.75
+local_coords = false
+texture = ExtResource( 3 )
+direction = Vector2( -5, 0 )
+gravity = Vector2( 0, 100 )
+initial_velocity = 40.0
+initial_velocity_random = 0.55
+anim_speed = 1.25
+[connection signal="area_entered" from="." to="." method="_on_Hand_area_entered"]
