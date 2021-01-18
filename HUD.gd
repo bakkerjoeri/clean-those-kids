@@ -7,7 +7,6 @@ const multiplier_colors = [
 	Color("#7b9ef0"),
 ]
 
-
 var multiplier_true_val = 0
 var multiplier_cur_var = 0
 var min_speed = 0.05;
