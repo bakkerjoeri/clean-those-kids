@@ -38,7 +38,7 @@ var cur_start_pos_index:int
 
 var current_score_message
 var score_message_timer: float = 0
-var score_message_cooldown: float = 0.5
+var score_message_cooldown: float = 0.75
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -79,6 +79,7 @@ func _process(delta: float):
 		run_combo_cooldown(delta)
 		
 	update_hud()
+	update_score_message(delta)
 
 	if (is_game_over() && current_state != GameState.GAME_OVER):
 		current_state = GameState.GAME_OVER
@@ -169,6 +170,16 @@ func update_hud():
 	else:
 		$HUD.set_multiplier_cooldown(0)
 
+func update_score_message(delta: float):
+	if (score_message_timer <= 0 && current_score_message):
+		cash_in_score_message()
+	
+	score_message_timer -= delta
+
+func cash_in_score_message():
+	current_score_message.cash_in()
+	current_score_message = null
+
 func all_kids_clean():
 	for kid in current_kids:
 		if not kid.is_clean:
@@ -187,6 +198,8 @@ func _on_Kid_cleaned(kid):
 	var kid_cleaned_message = KidCleanMessage.instance()
 	kid_cleaned_message.position = kid.position - Vector2(0, 24)
 	self.add_child(kid_cleaned_message)
+	# Cash in the score message
+	cash_in_score_message()
 	
 	# Show screen flash of cleanliness
 	do_kid_flash(kid.position)
@@ -194,7 +207,7 @@ func _on_Kid_cleaned(kid):
 	# Talk to the current wave
 	current_wave.on_Kid_cleaned()
 	if current_wave.is_wave_finished() and all_kids_clean():
-		end_wave(current_wave_index) 
+		end_wave(current_wave_index)
 		
 func do_kid_flash(position):
 	print("flash")
@@ -221,12 +234,14 @@ func _on_Dirt_cleaned(kid):
 	score += multiplier
 	
 	# Show the score message
-	if (!current_score_message):
-		current_score_message = ScoreIncreaseMessage.instance()
+	if (!self.current_score_message):
+		self.current_score_message = ScoreIncreaseMessage.instance()
+		self.add_child(current_score_message)
 	
-	current_score_message.position = kid.position + Vector2(0, -24)
-	current_score_message.score = score
-	current_score_message.multiplier = multiplier
+	self.current_score_message.position = kid.position + Vector2(0, -30)
+	self.current_score_message.score += 1
+	self.current_score_message.multiplier = multiplier
+	self.score_message_timer = self.score_message_cooldown
 
 func _on_Tween2_tween_completed(object, key):
 	var flash = $ScreenEffect/FLASH

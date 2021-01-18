@@ -36,6 +36,7 @@ func update_label():
 
 func cash_in():
 	self.state = MessageState.CASHED
+	self.position.y -= 5
 	$DestroyTimer.start()
 	$ScoreLabel.text = "+" + str(score * multiplier)
 	$ScoreAnimation.stop()
