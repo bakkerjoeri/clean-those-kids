@@ -38,8 +38,7 @@ func _ready():
 	
 	cur_state = KidState.ENTERING
 	var tween = $EnterTween
-	
-	var tween_duration = 1 if self.spawn_slowly else 0.3
+	var tween_duration = 1 if self.spawn_slowly else rand_range(0.3, 0.5)
 	tween.interpolate_property(self, "position", self.position, 
 							start_pos, tween_duration, 
 							Tween.TRANS_LINEAR, Tween.EASE_IN_OUT) 
