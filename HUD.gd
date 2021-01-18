@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Node2D
 
 const multiplier_colors = [
 	Color("#ed7a42"),
