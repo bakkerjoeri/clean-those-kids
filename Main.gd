@@ -121,14 +121,20 @@ func advance_wave(wave_index:int):
 		make_random_wave(wave_index)
 	self.current_wave = self.waves[current_wave_index]
 
+func move_kids_away():
+	for kid in current_kids:
+		kid.leave_screen()
+
 func end_wave(wave_index: int):
 	current_state = GameState.WAVE_TRANSITION
-	# do the stuff for going to the next wave here
+	
+	move_kids_away()
+	yield(get_tree().create_timer(2), "timeout")
+	remove_old_kids()
 	start_wave(wave_index+1)
 
 func start_wave(wave_index:int):
 	current_state = GameState.WAVE_TRANSITION
-	remove_old_kids()
 	advance_wave(wave_index)
 	initialize_spawn_location_order()
 	time_left += time_per_wave

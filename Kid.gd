@@ -18,7 +18,8 @@ export var max_dirts: int = 128
 
 enum KidState {
 	ENTERING,
-	ACTIVE
+	ACTIVE,
+	LEAVING
 }
 
 var my_dirts = 0
@@ -50,6 +51,15 @@ func _ready():
 	# Set direction
 	var direction = rand_range(-PI, PI)
 	velocity = Vector2(rand_range(min_speed, max_speed), 0).rotated(direction)
+
+func leave_screen():
+	self.cur_state = KidState.LEAVING
+	self.velocity = self.velocity*0
+	yield(get_tree().create_timer(0.5), "timeout")
+	
+	#move away from center, plus/minus 45 degrees
+	var direction = rand_range(-PI/4, PI/4)
+	self.velocity = (self.position-self.screen_size/2).normalized().rotated(direction)*200
 
 func set_kid_type(type):
 	self.kid_type = type
@@ -106,6 +116,7 @@ func _process(delta):
 			print("PERFECT KID!")
 			emit_signal("kid_cleaned", self)
 			$CleanParticles.emitting = true
+	if self.cur_state == KidState.ACTIVE or self.cur_state == KidState.LEAVING:
 		move_around(delta)
 
 	if kid_type == KidType.INFECTIOUS && my_dirts > 0:
@@ -124,10 +135,11 @@ func _process(delta):
 
 func move_around(delta):
 	position += velocity * delta
-	if position.x < 24 or position.x > screen_size.x - 24:
-		velocity.x = -velocity.x
-	if position.y < 48 or position.y > screen_size.y - 24:
-		velocity.y = -velocity.y
+	if self.cur_state == KidState.ACTIVE:
+		if position.x < 24 or position.x > screen_size.x - 24:
+			velocity.x = -velocity.x
+		if position.y < 48 or position.y > screen_size.y - 24:
+			velocity.y = -velocity.y
 
 func _on_Dirt_cleaned():
 	my_dirts -= 1
