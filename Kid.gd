@@ -44,11 +44,6 @@ func _ready():
 	velocity = Vector2(rand_range(min_speed, max_speed), 0).rotated(direction)
 
 
-func add_initial_dirt_clumps():
-	var spawn_count = self.dirty_kid_number_of_dirt_spots if self.kid_type== KidType.EXTRA_DIRTY else self.number_of_dirt_spots
-	# Spawn dirt
-	for _p in range(spawn_count):
-		add_dirt_clump()
 
 func set_kid_type(type):
 	self.kid_type = type
@@ -126,8 +121,13 @@ func _on_Kid_area_entered(other_kid: Area2D):
 
 
 func _on_EnterTween_tween_completed(object, key):
+	$CleanParticles.emitting = false
 	yield(get_tree().create_timer(1), "timeout")
-	add_initial_dirt_clumps()
+	var spawn_count = self.dirty_kid_number_of_dirt_spots if self.kid_type== KidType.EXTRA_DIRTY else self.number_of_dirt_spots
+	# Spawn dirt
+	for _p in range(spawn_count):
+		yield(get_tree().create_timer(0.5), "timeout")
+		add_dirt_clump()
 	yield(get_tree().create_timer(1), "timeout")
 	cur_state = KidState.ACTIVE
 	
