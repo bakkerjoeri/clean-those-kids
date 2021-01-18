@@ -49,18 +49,8 @@ func _ready():
 	var direction = rand_range(-PI, PI)
 	velocity = Vector2(rand_range(min_speed, max_speed), 0).rotated(direction)
 
-
-
 func set_kid_type(type):
 	self.kid_type = type
-
-	if type == KidType.INFECTIOUS:
-		$StinkLines.visible = true
-	else:
-		$StinkLines.visible = false
-	
-
-
 
 func is_unoccupied_position(all_dirts, new_pos):
 	for dirt in all_dirts:
@@ -112,8 +102,12 @@ func _process(delta):
 			print("PERFECT KID!")
 			emit_signal("kid_cleaned", self)
 			$CleanParticles.emitting = true
-			
 		move_around(delta)
+
+	if kid_type == KidType.INFECTIOUS && my_dirts > 0:
+		$StinkLines.visible = true
+	else:
+		$StinkLines.visible = false
 
 func move_around(delta):
 	position += velocity * delta
