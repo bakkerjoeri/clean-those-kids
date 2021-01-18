@@ -26,6 +26,8 @@ var velocity: Vector2
 var screen_size: Vector2
 var kid_type
 var cur_state
+var cleaning_timer_duration: float = 0.5
+var cleaning_timer: float = 0
 
 #Start-related variables
 var start_pos:Vector2
@@ -110,6 +112,15 @@ func _process(delta):
 		$StinkLines.visible = true
 	else:
 		$StinkLines.visible = false
+	
+	if (cleaning_timer > 0):
+		$LeftEye.show()
+		$RightEye.show()
+	else:
+		$LeftEye.hide()
+		$RightEye.hide()
+
+	cleaning_timer -= delta
 
 func move_around(delta):
 	position += velocity * delta
@@ -120,6 +131,7 @@ func move_around(delta):
 
 func _on_Dirt_cleaned():
 	my_dirts -= 1
+	cleaning_timer = cleaning_timer_duration
 	emit_signal("dirt_cleaned")
 	
 func _on_Kid_area_entered(other_kid: Area2D):
@@ -127,7 +139,6 @@ func _on_Kid_area_entered(other_kid: Area2D):
 	
 	if (self.kid_type == KidType.INFECTIOUS && !is_clean):
 		other_kid.call_deferred("add_dirt_clump", 8)
-
 
 func _on_EnterTween_tween_completed(object, key):
 	var anim_mult = 1 if self.spawn_slowly else 0.1
