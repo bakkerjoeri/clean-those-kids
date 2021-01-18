@@ -14,8 +14,8 @@ enum GameState {
 
 export(PackedScene) var kid_scene
 export var amount_of_kids: int = 2
-export var time_start = 8
-export var time_per_kid = 2
+export var time_start = 15
+export var time_per_kid = 3
 export var time_per_wave = 5
 
 const combo_cooldown_default = 5
