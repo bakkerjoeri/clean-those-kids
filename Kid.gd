@@ -1,6 +1,7 @@
 extends Node2D
 
 const KidType = preload("KidTypeEnum.gd").KidType
+const DirtParticles = preload("DirtParticles.tscn")
 
 signal kid_cleaned
 signal dirt_cleaned
@@ -53,6 +54,10 @@ func add_dirt_clump(amount_of_dirt: int = dirt_per_spot):
 
 func build_dirt(start_pos:Vector2, amount_of_dirt: int):
 	var all_dirts = []
+	
+	var dirt_particle_emitter = DirtParticles.instance()
+	dirt_particle_emitter.position = start_pos
+	self.add_child(dirt_particle_emitter)
 	
 	while all_dirts.size() < amount_of_dirt:
 		if (my_dirts > max_dirts):

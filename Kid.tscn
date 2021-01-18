@@ -97,14 +97,18 @@ gravity = Vector2( 0, 0 )
 initial_velocity = 2.0
 anim_speed = 1.5
 
-[node name="DirtyParticles" type="CPUParticles2D" parent="."]
+[node name="DirtParticles" type="CPUParticles2D" parent="."]
+visible = false
 material = SubResource( 11 )
-amount = 7
-lifetime = 2.0
+emitting = false
+amount = 3
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.5
 local_coords = false
 texture = ExtResource( 6 )
-emission_shape = 2
-emission_rect_extents = Vector2( 10, 15 )
+emission_shape = 1
+emission_sphere_radius = 5.0
 direction = Vector2( 0, 0 )
 spread = 180.0
 gravity = Vector2( 0, 0 )
