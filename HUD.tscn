@@ -122,11 +122,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Message" type="Label" parent="."]
+[node name="MessageNode" type="Node2D" parent="."]
+position = Vector2( 0, 90 )
+z_index = 10
+z_as_relative = false
+
+[node name="Message" type="Label" parent="MessageNode"]
 anchor_right = 1.0
-margin_top = 90.0
 margin_right = 320.0
-margin_bottom = 106.0
+margin_bottom = 16.0
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "HALLO"
@@ -136,6 +140,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Message"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MessageNode/Message"]
 anims/ShowMessage = SubResource( 2 )
 [connection signal="timeout" from="TimerContainer/Timer2" to="TimerContainer" method="_on_Timer2_timeout"]
