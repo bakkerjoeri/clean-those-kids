@@ -144,7 +144,7 @@ func move_around(delta):
 func _on_Dirt_cleaned():
 	my_dirts -= 1
 	cleaning_timer = cleaning_timer_duration
-	emit_signal("dirt_cleaned")
+	emit_signal("dirt_cleaned", self)
 	
 func _on_Kid_area_entered(other_kid: Area2D):
 	self.velocity = self.velocity.bounce((other_kid.position - self.position).normalized())

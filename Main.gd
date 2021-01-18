@@ -4,6 +4,7 @@ const GameOverScreen = preload("res://GameOverScreen.tscn")
 const Wave = preload("Wave.gd")
 const KidType = preload("KidTypeEnum.gd").KidType
 const KidCleanMessage = preload("KidCleanMessage.tscn")
+const ScoreIncreaseMessage = preload("ScoreIncreaseMessage.tscn")
 
 enum GameState {
 	START,
@@ -34,6 +35,10 @@ var current_wave_index = 0
 var current_kids = []
 var startPositions:Array
 var cur_start_pos_index:int
+
+var current_score_message
+var score_message_timer: float = 0
+var score_message_cooldown: float = 0.5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -212,9 +217,16 @@ func do_kid_flash(position):
 	tween2.start()
 	
 
-func _on_Dirt_cleaned():
+func _on_Dirt_cleaned(kid):
 	score += multiplier
-
+	
+	# Show the score message
+	if (!current_score_message):
+		current_score_message = ScoreIncreaseMessage.instance()
+	
+	current_score_message.position = kid.position + Vector2(0, -24)
+	current_score_message.score = score
+	current_score_message.multiplier = multiplier
 
 func _on_Tween2_tween_completed(object, key):
 	var flash = $ScreenEffect/FLASH
