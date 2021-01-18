@@ -37,6 +37,7 @@ shape = SubResource( 2 )
 [node name="DropsRight" type="CPUParticles2D" parent="."]
 material = SubResource( 3 )
 position = Vector2( 13, 3 )
+emitting = false
 amount = 3
 lifetime = 0.75
 local_coords = false
@@ -50,6 +51,7 @@ anim_speed = 1.25
 [node name="DropsLeft" type="CPUParticles2D" parent="."]
 material = SubResource( 3 )
 position = Vector2( -10, 3 )
+emitting = false
 amount = 3
 lifetime = 0.75
 local_coords = false
