@@ -59,7 +59,9 @@ func is_unoccupied_position(all_dirts, new_pos):
 	return true
 	
 func add_dirt_clump(amount_of_dirt: int = dirt_per_spot):
-	build_dirt(Vector2(randi() % 45 - 22, randi() % 45 - 22), amount_of_dirt)
+	var dirt_dump_list = $DirtRegions.get_children()
+	var selected_dump_pos = dirt_dump_list[randi() % dirt_dump_list.size()].position
+	build_dirt(selected_dump_pos + Vector2(randi() % 5 - 2, randi() % 5 - 2), amount_of_dirt)
 
 func build_dirt(start_pos:Vector2, amount_of_dirt: int):
 	var all_dirts = []

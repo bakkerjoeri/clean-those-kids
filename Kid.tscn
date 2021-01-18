@@ -79,7 +79,6 @@ shape = SubResource( 6 )
 visible = false
 position = Vector2( 0, -31 )
 frames = SubResource( 10 )
-frame = 2
 playing = true
 
 [node name="CleanParticles" type="CPUParticles2D" parent="."]
@@ -115,5 +114,46 @@ initial_velocity = 2.0
 anim_speed = 1.5
 
 [node name="EnterTween" type="Tween" parent="."]
+
+[node name="DirtRegions" type="Node" parent="."]
+
+[node name="Position2D" type="Position2D" parent="DirtRegions"]
+position = Vector2( -9, 5 )
+
+[node name="Position2D2" type="Position2D" parent="DirtRegions"]
+position = Vector2( -9, 9 )
+
+[node name="Position2D3" type="Position2D" parent="DirtRegions"]
+position = Vector2( -10, 15 )
+
+[node name="Position2D4" type="Position2D" parent="DirtRegions"]
+position = Vector2( -2, 9 )
+
+[node name="Position2D5" type="Position2D" parent="DirtRegions"]
+position = Vector2( 8, 9 )
+
+[node name="Position2D6" type="Position2D" parent="DirtRegions"]
+position = Vector2( 7, 15 )
+
+[node name="Position2D7" type="Position2D" parent="DirtRegions"]
+position = Vector2( 8, 4 )
+
+[node name="Position2D8" type="Position2D" parent="DirtRegions"]
+position = Vector2( 7, -7 )
+
+[node name="Position2D9" type="Position2D" parent="DirtRegions"]
+position = Vector2( 0, -8 )
+
+[node name="Position2D10" type="Position2D" parent="DirtRegions"]
+position = Vector2( 0, -4 )
+
+[node name="Position2D11" type="Position2D" parent="DirtRegions"]
+position = Vector2( -9, -8 )
+
+[node name="Position2D12" type="Position2D" parent="DirtRegions"]
+position = Vector2( -14, -1 )
+
+[node name="Position2D13" type="Position2D" parent="DirtRegions"]
+position = Vector2( 13, -1 )
 [connection signal="area_entered" from="." to="." method="_on_Kid_area_entered"]
 [connection signal="tween_completed" from="EnterTween" to="." method="_on_EnterTween_tween_completed"]
