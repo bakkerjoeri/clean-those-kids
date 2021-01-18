@@ -4,6 +4,7 @@ const KidType = preload("KidTypeEnum.gd").KidType
 const DirtParticles = preload("DirtParticles.tscn")
 
 signal kid_cleaned(kid)
+signal kid_cleaned_first_time
 signal dirt_cleaned
 signal dirt_clump_spawned
 signal kid_start_moving
@@ -14,6 +15,8 @@ export var dirty_kid_number_of_dirt_spots: int = 4
 export var dirt_per_spot: int = 16
 export var min_speed: int = 30
 export var max_speed: int = 50
+export var min_speed_fast_kid: int = 70
+export var max_speed_fast_kid: int = 80
 export var max_dirts: int = 128
 
 enum KidState {
@@ -34,6 +37,7 @@ var cleaning_timer: float = 0
 #Start-related variables
 var start_pos:Vector2
 var spawn_slowly:bool
+var has_been_cleaned:bool = false
 
 func _ready():
 	# Choose a face!
@@ -50,7 +54,11 @@ func _ready():
 	
 	# Set direction
 	var direction = rand_range(-PI, PI)
-	velocity = Vector2(rand_range(min_speed, max_speed), 0).rotated(direction)
+	
+	if kid_type == self.KidType.FAST or kid_type == self.KidType.INFECTIOUS_FAST:
+		velocity = Vector2(rand_range(min_speed_fast_kid, max_speed_fast_kid), 0).rotated(direction)
+	else:
+		velocity = Vector2(rand_range(min_speed, max_speed), 0).rotated(direction)
 
 func leave_screen():
 	self.cur_state = KidState.LEAVING
@@ -116,10 +124,13 @@ func _process(delta):
 			print("PERFECT KID!")
 			emit_signal("kid_cleaned", self)
 			$CleanParticles.emitting = true
+			if not has_been_cleaned:
+				emit_signal("kid_cleaned_first_time")
+				has_been_cleaned = true
 	if self.cur_state == KidState.ACTIVE or self.cur_state == KidState.LEAVING:
 		move_around(delta)
 
-	if kid_type == KidType.INFECTIOUS && my_dirts > 0:
+	if (kid_type == KidType.INFECTIOUS or kid_type == KidType.INFECTIOUS_FAST) && my_dirts > 0:
 		$StinkLines.visible = true
 	else:
 		$StinkLines.visible = false
@@ -149,7 +160,7 @@ func _on_Dirt_cleaned():
 func _on_Kid_area_entered(other_kid: Area2D):
 	self.velocity = self.velocity.bounce((other_kid.position - self.position).normalized())
 	
-	if (self.kid_type == KidType.INFECTIOUS && !is_clean):
+	if (self.kid_type == KidType.INFECTIOUS or self.kid_type == KidType.INFECTIOUS_FAST) && !is_clean:
 		other_kid.call_deferred("add_dirt_clump", 8)
 
 func _on_EnterTween_tween_completed(object, key):
