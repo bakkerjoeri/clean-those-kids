@@ -96,6 +96,7 @@ func add_kid(kid_type, spawn_in_center:bool):
 		kid.position = kid.start_pos - (screen_size/2 - kid.start_pos)*1.5
 	kid.connect("kid_cleaned", self, "_on_Kid_cleaned")
 	kid.connect("dirt_cleaned", self, "_on_Dirt_cleaned")
+	kid.connect("dirt_clump_spawned", self, "_on_Dirt_spawned")
 	kid.set_kid_type(kid_type)
 	add_child(kid)
 	current_kids.append(kid)
@@ -145,12 +146,14 @@ func update_hud():
 	else:
 		$HUD.set_multiplier_cooldown(0)
 
-
 func all_kids_clean():
 	for kid in current_kids:
 		if not kid.is_clean:
 			return false
 	return true
+
+func _on_Dirt_spawned():
+	$ShakeCamera.shake(6)
 
 func _on_Kid_cleaned():
 	multiplier += 1
