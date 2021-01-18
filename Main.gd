@@ -8,6 +8,7 @@ const KidCleanMessage = preload("KidCleanMessage.tscn")
 enum GameState {
 	START,
 	PLAY,
+	WAVE_TRANSITION,
 	GAME_OVER
 }
 
@@ -68,8 +69,10 @@ func make_random_wave(var wave_number):
 	waves.append(wave)
 	
 func _process(delta: float):
-	update_time_left(delta)
-	run_combo_cooldown(delta)
+	if current_state == GameState.PLAY:
+		update_time_left(delta)
+		run_combo_cooldown(delta)
+		
 	update_hud()
 
 	if (is_game_over() && current_state != GameState.GAME_OVER):
@@ -98,6 +101,7 @@ func add_kid(kid_type, spawn_in_center:bool):
 	kid.connect("kid_cleaned", self, "_on_Kid_cleaned")
 	kid.connect("dirt_cleaned", self, "_on_Dirt_cleaned")
 	kid.connect("dirt_clump_spawned", self, "_on_Dirt_spawned")
+	kid.connect("kid_start_moving", self, "_on_Kid_start_moving")
 	kid.set_kid_type(kid_type)
 	add_child(kid)
 	current_kids.append(kid)
@@ -117,7 +121,13 @@ func advance_wave(wave_index:int):
 		make_random_wave(wave_index)
 	self.current_wave = self.waves[current_wave_index]
 
+func end_wave(wave_index: int):
+	current_state = GameState.WAVE_TRANSITION
+	# do the stuff for going to the next wave here
+	start_wave(wave_index+1)
+
 func start_wave(wave_index:int):
+	current_state = GameState.WAVE_TRANSITION
 	remove_old_kids()
 	advance_wave(wave_index)
 	initialize_spawn_location_order()
@@ -172,7 +182,7 @@ func _on_Kid_cleaned(kid):
 	# Talk to the current wave
 	current_wave.on_Kid_cleaned()
 	if current_wave.is_wave_finished() and all_kids_clean():
-		start_wave(current_wave_index+1) 
+		end_wave(current_wave_index) 
 		
 func do_kid_flash(position):
 	print("flash")
@@ -202,3 +212,8 @@ func _on_Dirt_cleaned():
 func _on_Tween2_tween_completed(object, key):
 	var flash = $ScreenEffect/FLASH
 	flash.hide()
+
+func _on_Kid_start_moving():
+	print("move")
+	if current_state == GameState.WAVE_TRANSITION:
+		current_state = GameState.PLAY

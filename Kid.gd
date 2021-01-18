@@ -6,6 +6,7 @@ const DirtParticles = preload("DirtParticles.tscn")
 signal kid_cleaned(kid)
 signal dirt_cleaned
 signal dirt_clump_spawned
+signal kid_start_moving
 
 export(PackedScene) var dirt_scene
 export var number_of_dirt_spots: int = 2
@@ -151,4 +152,4 @@ func _on_EnterTween_tween_completed(object, key):
 		add_dirt_clump()
 	yield(get_tree().create_timer(1*anim_mult), "timeout")
 	cur_state = KidState.ACTIVE
-	
+	emit_signal("kid_start_moving")
