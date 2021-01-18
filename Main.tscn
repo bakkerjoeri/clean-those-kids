@@ -13,3 +13,50 @@ kid_scene = ExtResource( 1 )
 position = Vector2( 150.952, -62.7811 )
 
 [node name="HUD" parent="." instance=ExtResource( 4 )]
+
+[node name="BorderStartPositions" type="Node" parent="."]
+
+[node name="Position2D" type="Position2D" parent="BorderStartPositions"]
+position = Vector2( 42, 50 )
+
+[node name="Position2D2" type="Position2D" parent="BorderStartPositions"]
+position = Vector2( 42, 146 )
+
+[node name="Position2D3" type="Position2D" parent="BorderStartPositions"]
+position = Vector2( 42, 98 )
+
+[node name="Position2D4" type="Position2D" parent="BorderStartPositions"]
+position = Vector2( 90, 50 )
+
+[node name="Position2D5" type="Position2D" parent="BorderStartPositions"]
+position = Vector2( 138, 50 )
+
+[node name="Position2D6" type="Position2D" parent="BorderStartPositions"]
+position = Vector2( 186, 50 )
+
+[node name="Position2D7" type="Position2D" parent="BorderStartPositions"]
+position = Vector2( 234, 50 )
+
+[node name="Position2D8" type="Position2D" parent="BorderStartPositions"]
+position = Vector2( 282, 50 )
+
+[node name="Position2D9" type="Position2D" parent="BorderStartPositions"]
+position = Vector2( 282, 98 )
+
+[node name="Position2D10" type="Position2D" parent="BorderStartPositions"]
+position = Vector2( 282, 146 )
+
+[node name="Position2D11" type="Position2D" parent="BorderStartPositions"]
+position = Vector2( 234, 146 )
+
+[node name="Position2D12" type="Position2D" parent="BorderStartPositions"]
+position = Vector2( 186, 146 )
+
+[node name="Position2D13" type="Position2D" parent="BorderStartPositions"]
+position = Vector2( 138, 146 )
+
+[node name="Position2D14" type="Position2D" parent="BorderStartPositions"]
+position = Vector2( 90, 146 )
+
+[node name="CenterStartPos" type="Position2D" parent="."]
+position = Vector2( 160, 96 )

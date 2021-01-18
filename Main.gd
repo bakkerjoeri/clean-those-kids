@@ -26,16 +26,18 @@ var combo_cooldown: float = combo_cooldown_default
 var time_left: float = time_start
 
 var waves = []
-var current_wave
+var current_wave:Wave
 var current_wave_index = 0
 
 var current_kids = []
+var startPositions:Array
+var cur_start_pos_index:int
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
 	screen_size = get_viewport().size
-	
+	startPositions = $BorderStartPositions.get_children()
 	waves = [Wave.new(1, [KidType.NORMIE], "CLEAN!  THOSE!  KIDS!"),
 			Wave.new(2, [KidType.NORMIE, KidType.NORMIE], "WAVE 2 KIDS"),
 			Wave.new(1, [KidType.NORMIE, KidType.NORMIE, KidType.INFECTIOUS], "WAVE 3 KIDS"),
@@ -81,10 +83,14 @@ func _process(delta: float):
 func is_game_over() -> bool:
 	return time_left <= 0
 
-func add_kid(kid_type):
+func add_kid(kid_type, spawn_in_center:bool):
 	var kid = kid_scene.instance()
-	# Set kid to random position within screen
-	kid.position = (screen_size - Vector2(48,48)) * rand_range(0,1) + Vector2(24,24)
+
+	if spawn_in_center:
+		kid.position = $CenterStartPos.position
+	else:
+		kid.position = startPositions[cur_start_pos_index].position
+		cur_start_pos_index = (cur_start_pos_index + 1) % startPositions.size()
 	kid.connect("kid_cleaned", self, "_on_Kid_cleaned")
 	kid.connect("dirt_cleaned", self, "_on_Dirt_cleaned")
 	kid.set_kid_type(kid_type)
@@ -96,12 +102,20 @@ func remove_old_kids():
 		kid.queue_free()
 	current_kids.clear()
 
-func start_wave(var wave_index):
-	remove_old_kids()
-	current_wave_index = wave_index
-	if current_wave_index >= waves.size():
+func initialize_spawn_location_order():
+	self.startPositions.shuffle()
+	self.cur_start_pos_index = 0
+
+func advance_wave(wave_index:int):
+	self.current_wave_index = wave_index
+	if self.current_wave_index >= waves.size():
 		make_random_wave(wave_index)
-	current_wave = waves[current_wave_index]
+	self.current_wave = self.waves[current_wave_index]
+
+func start_wave(wave_index:int):
+	remove_old_kids()
+	advance_wave(wave_index)
+	initialize_spawn_location_order()
 	time_left += current_wave.total_kid_count * time_per_kid + time_per_wave
 	$HUD.show_message(current_wave.wave_intro)
 	yield(get_tree().create_timer(0.5), "timeout")

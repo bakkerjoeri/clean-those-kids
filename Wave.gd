@@ -10,7 +10,7 @@ var total_kid_count
 var kids_added:int
 var wave_intro
 
-func _init(var initial_kid_count, var kids_to_spawn, var wave_intro):
+func _init(var initial_kid_count:int, var kids_to_spawn:Array, var wave_intro):
 	self.initial_kid_count = initial_kid_count
 	self.kids_to_spawn = kids_to_spawn
 	self.total_kid_count = kids_to_spawn.size()
@@ -27,7 +27,8 @@ func is_wave_finished():
 	return self.kids_cleaned >= total_kid_count	
 		
 func add_kid(var kid_type):
-	emit_signal("add_kid", kid_type)
+	var spawn_in_center = kids_added == 0 and self.initial_kid_count == 1
+	emit_signal("add_kid", kid_type, spawn_in_center)
 	kids_added += 1	
 
 func build_wave():
