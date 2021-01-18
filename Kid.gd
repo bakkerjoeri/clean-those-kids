@@ -25,7 +25,9 @@ var screen_size: Vector2
 var kid_type
 var cur_state
 
+#Start-related variables
 var start_pos:Vector2
+var spawn_slowly:bool
 
 func _ready():
 	# Choose a face!
@@ -34,8 +36,10 @@ func _ready():
 	
 	cur_state = KidState.ENTERING
 	var tween = $EnterTween
+	
+	var tween_duration = 1 if self.spawn_slowly else 0.3
 	tween.interpolate_property(self, "position", self.position, 
-							start_pos, 1, 
+							start_pos, tween_duration, 
 							Tween.TRANS_LINEAR, Tween.EASE_IN_OUT) 
 	tween.start()
 	
@@ -121,13 +125,15 @@ func _on_Kid_area_entered(other_kid: Area2D):
 
 
 func _on_EnterTween_tween_completed(object, key):
+	var anim_mult = 1 if self.spawn_slowly else 0.1
 	$CleanParticles.emitting = false
-	yield(get_tree().create_timer(1), "timeout")
+	if self.spawn_slowly:
+		yield(get_tree().create_timer(1*anim_mult), "timeout")
 	var spawn_count = self.dirty_kid_number_of_dirt_spots if self.kid_type== KidType.EXTRA_DIRTY else self.number_of_dirt_spots
 	# Spawn dirt
 	for _p in range(spawn_count):
-		yield(get_tree().create_timer(0.5), "timeout")
+		yield(get_tree().create_timer(0.5*anim_mult), "timeout")
 		add_dirt_clump()
-	yield(get_tree().create_timer(1), "timeout")
+	yield(get_tree().create_timer(1*anim_mult), "timeout")
 	cur_state = KidState.ACTIVE
 	
