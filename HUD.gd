@@ -1,11 +1,18 @@
 extends Node2D
 
+const FloatingMessage = preload("res://FloatingMessage.tscn")
+
 const multiplier_colors = [
 	Color("#ed7a42"),
 	Color("#c68478"),
 	Color("#8cbe65"),
 	Color("#7b9ef0"),
 ]
+
+var multiplier_previous_val = 0
+var is_first_multiplier_update = true
+var time_left_previous_value = 0
+var is_first_time_update = true
 
 var multiplier_true_val = 0
 var multiplier_cur_var = 0
@@ -40,9 +47,29 @@ func set_score(var score: int):
 
 func set_multiplier(var multiplier: int):
 	$Multiplier.text = str(multiplier) + "x"
+	
+	if (multiplier - multiplier_previous_val > 0 && !is_first_multiplier_update):
+		var multiplier_up_message = FloatingMessage.instance()
+		multiplier_up_message.position = Vector2(60, 26)
+		multiplier_up_message.set_message("+" + str(multiplier - multiplier_previous_val) + " multiplier")
+		multiplier_up_message.set_movement(8)
+		self.add_child(multiplier_up_message)
+	
+	multiplier_previous_val = multiplier
+	is_first_multiplier_update = false
 
 func set_time_left(var time_left: float):
 	$TimerContainer.set_time_left(time_left)
+	
+	if (time_left - time_left_previous_value > 0 && !is_first_time_update):
+		var time_up_message = FloatingMessage.instance()
+		time_up_message.position = Vector2(265, 26)
+		time_up_message.set_message("+" + str(round(time_left - time_left_previous_value)) + " seconds")
+		time_up_message.set_movement(8)
+		self.add_child(time_up_message)
+	
+	time_left_previous_value = time_left
+	is_first_time_update = false
 
 func show_message(var message):
 	$MessageNode/Message.text = message
