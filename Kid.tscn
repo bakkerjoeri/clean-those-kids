@@ -106,6 +106,7 @@ texture = ExtResource( 7 )
 visible = false
 position = Vector2( 0, -31 )
 frames = SubResource( 14 )
+frame = 1
 playing = true
 
 [node name="CleanParticles" type="CPUParticles2D" parent="."]

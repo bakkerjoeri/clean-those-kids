@@ -158,6 +158,9 @@ func _on_Dirt_cleaned():
 	emit_signal("dirt_cleaned", self)
 	
 func _on_Kid_area_entered(other_kid: Area2D):
+	if (self.cur_state == KidState.LEAVING):
+		return
+	
 	self.velocity = self.velocity.bounce((other_kid.position - self.position).normalized())
 	
 	if (self.kid_type == KidType.INFECTIOUS or self.kid_type == KidType.INFECTIOUS_FAST) && !is_clean:
