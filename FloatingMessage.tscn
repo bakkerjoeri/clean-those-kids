@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/slapface.tres" type="DynamicFont" id=1]
+[ext_resource path="res://FloatingMessage.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Colors"
+length = 0.25
+loop = true
+step = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:custom_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.001, 0.12 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Color( 0.917647, 0.596078, 0.8, 1 ), Color( 0.827451, 0.0627451, 0.521569, 1 ) ]
+}
+
+[node name="FloatingMessage" type="Node2D"]
+z_index = 10
+script = ExtResource( 2 )
+
+[node name="Message" type="Label" parent="."]
+margin_left = -100.0
+margin_top = -20.0
+margin_right = 100.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.827451, 0.0627451, 0.521569, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+text = "some message!"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Message")
+anims/Colors = SubResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+autostart = true
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
