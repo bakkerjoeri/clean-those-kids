@@ -2,8 +2,8 @@ extends Node2D
 
 export var upward_movement = 12
 
+const base_message = ['kid clean!']
 const messages = [
-	'kid clean!',
 	'pristine kid!',
 	'perfect kid!',
 	'squeaky clean!',
@@ -11,10 +11,20 @@ const messages = [
 	'lavender scented!',
 	'don limpio!',
 	'shiny kid!',
+	'soapy!',
+	'wow!',
+	'unstained!',
+	'filth banished!',
+	'deep scrub!',
+	'cleansed kid!',
+	'spotless!'
 ]
 
 func _ready():
-	$Message.text = messages[randi() % messages.size()]
+	if rand_range(0,1.0) < 0.25:
+		$Message.text = base_message[randi() % base_message.size()]
+	else:
+		$Message.text = messages[randi() % messages.size()]
 	$AnimationPlayer.play("Colors")
 
 func _process(delta):
