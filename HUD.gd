@@ -38,9 +38,10 @@ func _process(delta):
 	
 func set_cooldown(cooldown_rect, fill_percentage):
 	cooldown_rect.rect_size = Vector2(
-	fill_percentage * 120,
-	cooldown_rect.rect_size.y
+		min(100, fill_percentage * 100),
+		cooldown_rect.rect_size.y
 	)
+
 	var color_selection_id = floor(fill_percentage * multiplier_colors.size())
 	#if multiplier_cur_var would be exactly 1, this would end up on 1 too high
 	color_selection_id = min(multiplier_colors.size()-1, color_selection_id)

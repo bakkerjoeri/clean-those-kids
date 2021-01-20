@@ -51,9 +51,11 @@ tracks/1/keys = {
 [node name="HUD" type="Node2D"]
 script = ExtResource( 1 )
 
-[node name="Background" type="ColorRect" parent="."]
-margin_right = 319.0
-margin_bottom = 24.0
+[node name="MultiplierBackground" type="ColorRect" parent="."]
+margin_left = 7.0
+margin_top = 4.0
+margin_right = 107.0
+margin_bottom = 20.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -69,25 +71,34 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Multiplier" type="Label" parent="."]
+margin_left = 9.0
+margin_top = 5.0
+margin_right = 103.0
+margin_bottom = 21.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "0x"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimerBackground" type="ColorRect" parent="."]
+margin_left = 213.0
+margin_top = 4.0
+margin_right = 313.0
+margin_bottom = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="TimerCooldown" type="ColorRect" parent="."]
 margin_left = 214.0
 margin_top = 4.0
 margin_right = 214.0
 margin_bottom = 20.0
 color = Color( 1, 0.670588, 0.909804, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Multiplier" type="Label" parent="."]
-margin_left = 5.0
-margin_top = 6.0
-margin_right = 103.0
-margin_bottom = 22.0
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "0x"
-align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -103,26 +114,30 @@ anims/Flash = SubResource( 1 )
 wait_time = 0.05
 
 [node name="Timer" type="Label" parent="TimerContainer"]
-margin_left = -2.0
-margin_top = 1.0
-margin_right = 93.0
-margin_bottom = 17.0
+margin_left = 3.0
+margin_right = 82.0
+margin_bottom = 16.0
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "100 seconds"
+text = "30 seconds"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 4 )
-centered = false
+[node name="ScoreBackground" type="ColorRect" parent="."]
+margin_left = 126.0
+margin_top = 4.0
+margin_right = 194.0
+margin_bottom = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Score" type="Label" parent="."]
-margin_left = 112.0
+margin_left = 128.0
 margin_top = 5.0
-margin_right = 208.0
+margin_right = 191.0
 margin_bottom = 21.0
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -131,6 +146,10 @@ align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 4 )
+centered = false
 
 [node name="MessageNode" type="Node2D" parent="."]
 position = Vector2( 0, 90 )
