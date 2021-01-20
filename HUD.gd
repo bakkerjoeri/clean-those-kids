@@ -63,8 +63,8 @@ func set_multiplier(var multiplier: int):
 	
 	if (multiplier - multiplier_previous_val > 0 && !is_first_multiplier_update):
 		var multiplier_up_message = FloatingMessage.instance()
-		multiplier_up_message.position = Vector2(60, 26)
-		multiplier_up_message.set_message("+" + str(multiplier - multiplier_previous_val) + " multiplier")
+		multiplier_up_message.position = Vector2(88, 26)
+		multiplier_up_message.set_message("+" + str(multiplier - multiplier_previous_val))
 		multiplier_up_message.set_movement(8)
 		self.add_child(multiplier_up_message)
 	
@@ -77,8 +77,8 @@ func set_time_left(var time_left: float):
 	var time_delta = ceil(time_left) - ceil(time_left_previous_value)
 	if (time_delta > 0 && !is_first_time_update):		
 		var time_up_message = FloatingMessage.instance()
-		time_up_message.position = Vector2(265, 26)
-		time_up_message.set_message("+" + str(time_delta) + " seconds")
+		time_up_message.position = Vector2(226, 26)
+		time_up_message.set_message("+" + str(time_delta))
 		time_up_message.set_movement(8)
 		self.add_child(time_up_message)
 	

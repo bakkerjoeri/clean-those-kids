@@ -99,7 +99,6 @@ func _process(delta: float):
 
 	if (is_game_over() && current_state != GameState.GAME_OVER):
 		current_state = GameState.GAME_OVER
-		print("Joe, ge bende game over")
 		var game_over_screen = GameOverScreen.instance()
 		game_over_screen.set_score(score)
 		self.add_child(game_over_screen)
