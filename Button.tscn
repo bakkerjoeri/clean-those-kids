@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/button.png" type="Texture" id=1]
+[ext_resource path="res://assets/slapface.tres" type="DynamicFont" id=2]
+[ext_resource path="res://assets/button-pressed.png" type="Texture" id=3]
+[ext_resource path="res://Label.gd" type="Script" id=4]
+
+[node name="TextureButton" type="TextureButton"]
+margin_left = -48.0
+margin_top = -12.0
+margin_right = 48.0
+margin_bottom = 12.0
+keep_pressed_outside = true
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 2.0
+margin_top = 3.86981
+margin_right = 93.8152
+margin_bottom = 19.8698
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0.709804, 0.87451, 0.894118, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+text = "label"
+align = 1
+valign = 1
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="button_down" from="." to="Label" method="_on_TextureButton_button_down"]
+[connection signal="button_up" from="." to="Label" method="_on_TextureButton_button_up"]
+[connection signal="pressed" from="." to="Label" method="_on_TextureButton_pressed"]
