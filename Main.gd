@@ -54,12 +54,23 @@ func _ready():
 			Wave.new(3, [KidType.NORMIE, KidType.FAST, KidType.NORMIE, KidType.FAST, KidType.INFECTIOUS, KidType.FAST], 2, "6 KIDS: WAVE 7 KIDS"),
 			Wave.new(2, [KidType.NORMIE, KidType.NORMIE, KidType.INFECTIOUS, KidType.INFECTIOUS], 2, "WAVE 8 KIDS: DOUBLE DIRTY"),
 			Wave.new(1, [KidType.FAST, KidType.FAST, KidType.FAST], 1, "WAVE 9 KIDS: BOSS WAVE IMMINENT"),
-			Wave.new(2, [KidType.INFECTIOUS, KidType.EXTRA_DIRTY, KidType.INFECTIOUS, KidType.INFECTIOUS_FAST], 2, "WAVE 10 BOSS KID")]
+			Wave.new(2, [KidType.INFECTIOUS, KidType.EXTRA_DIRTY, KidType.INFECTIOUS, KidType.INFECTIOUS_FAST], 2, "WAVE 10 BOSS KID"),
+			Wave.new(3, [KidType.INFECTIOUS, KidType.INFECTIOUS, KidType.FAST, KidType.FAST], 2, "THIS WAVE: UP TO 11"),
+			Wave.new(5, [KidType.NORMIE, KidType.NORMIE, KidType.NORMIE, KidType.NORMIE, KidType.NORMIE], 2, "WAVE 12: KIDS UNENDING"),
+			Wave.new(2, [KidType.EXTRA_DIRTY, KidType.NORMIE, KidType.INFECTIOUS, KidType.INFECTIOUS], 2, "CONTROL THE DIRT"),
+			Wave.new(2, [KidType.EXTRA_DIRTY, KidType.NORMIE, KidType.INFECTIOUS, KidType.INFECTIOUS], 2, "BECOME THE DIRT"),
+			Wave.new(2, [KidType.EXTRA_DIRTY, KidType.NORMIE, KidType.INFECTIOUS, KidType.INFECTIOUS], 2, "OVERCOME THE DIRT"),
+			Wave.new(1, [KidType.NORMIE], 1, "DIRT AAA"),
+			Wave.new(1, [KidType.DIRT_TRANSCENDED], 1, "DIRT TRANSCENDED", 0.3),
+			Wave.new(1, [KidType.NORMIE, KidType.INFECTIOUS_FAST], 2, "TRANCENDENCE... BROKEN?"),
+			Wave.new(3, [KidType.FAST, KidType.FAST, KidType.FAST], 2, "HOW DO I CLEAN THESE KIDS?"),
+			Wave.new(2, [KidType.FAST, KidType.NORMIE, KidType.FAST, KidType.INFECTIOUS_FAST], 2, "2 FAST 4 KIDS 2: WAVE 19 EDITION"),
+			]
 	
 	for wave in waves:
 		wave.connect("add_kid", self, "add_kid")
 
-	start_wave(0)
+	start_wave(15)
 
 func make_random_wave(var wave_number):
 	var kids_on_screen = max(log(wave_number+1),2)
@@ -101,7 +112,8 @@ func is_game_over() -> bool:
 
 func add_kid(kid_type, spawn_in_center:bool):
 	var kid = kid_scene.instance()
-	kid.spawn_slowly = true if self.current_wave_index == 0 else false
+	if self.current_wave_index == 0:
+		kid.spawn_slowly = true
 	if spawn_in_center:
 		kid.start_pos = $CenterStartPos.position
 		kid.position = Vector2(350, kid.start_pos.y)
@@ -149,6 +161,7 @@ func end_wave(wave_index: int):
 func start_wave(wave_index:int):
 	current_state = GameState.WAVE_TRANSITION
 	advance_wave(wave_index)
+	Engine.time_scale = current_wave.time_scale
 	initialize_spawn_location_order()
 	add_time(time_per_wave)
 	$HUD.show_message(current_wave.wave_intro)

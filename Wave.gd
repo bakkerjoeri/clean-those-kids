@@ -10,9 +10,10 @@ var total_kid_count
 var kids_added:int
 var wave_intro
 var adds_per_time:int
+var time_scale
 
 func _init(var initial_kid_count:int, var kids_to_spawn:Array, 
-			var adds_per_time:int, var wave_intro):
+			var adds_per_time:int, var wave_intro, var time_scale = 1.0):
 	self.initial_kid_count = initial_kid_count
 	self.kids_to_spawn = kids_to_spawn
 	self.total_kid_count = kids_to_spawn.size()
@@ -20,6 +21,7 @@ func _init(var initial_kid_count:int, var kids_to_spawn:Array,
 	self.kids_added = 0
 	self.wave_intro = wave_intro
 	self.adds_per_time = adds_per_time
+	self.time_scale = time_scale
 	
 func on_Kid_cleaned():
 	self.kids_cleaned += 1
