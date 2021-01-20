@@ -151,9 +151,11 @@ func move_around(delta):
 	else:
 		position += velocity * delta
 	if self.cur_state == KidState.ACTIVE:
-		if position.x < 24 or position.x > screen_size.x - 24:
+		if (position.x < 24 and velocity.x < 0) or \
+		   (position.x > screen_size.x - 24 and velocity.x > 0):
 			velocity.x = -velocity.x
-		if position.y < 48 or position.y > screen_size.y - 24:
+		if (position.y < 48 and velocity.y < 0) or \
+		(position.y > screen_size.y - 24 and velocity.y > 0):
 			velocity.y = -velocity.y
 
 func _on_Dirt_cleaned():
