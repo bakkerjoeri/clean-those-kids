@@ -60,17 +60,16 @@ func _ready():
 			Wave.new(2, [KidType.EXTRA_DIRTY, KidType.NORMIE, KidType.INFECTIOUS, KidType.INFECTIOUS], 2, "CONTROL THE DIRT"),
 			Wave.new(2, [KidType.EXTRA_DIRTY, KidType.NORMIE, KidType.INFECTIOUS, KidType.INFECTIOUS], 2, "BECOME THE DIRT"),
 			Wave.new(2, [KidType.EXTRA_DIRTY, KidType.NORMIE, KidType.INFECTIOUS, KidType.INFECTIOUS], 2, "OVERCOME THE DIRT"),
-			Wave.new(1, [KidType.NORMIE], 1, "DIRT AAA"),
 			Wave.new(1, [KidType.DIRT_TRANSCENDED], 1, "DIRT TRANSCENDED", 0.3),
 			Wave.new(1, [KidType.NORMIE, KidType.INFECTIOUS_FAST], 2, "TRANCENDENCE... BROKEN?"),
 			Wave.new(3, [KidType.FAST, KidType.FAST, KidType.FAST], 2, "HOW DO I CLEAN THESE KIDS?"),
-			Wave.new(2, [KidType.FAST, KidType.NORMIE, KidType.FAST, KidType.INFECTIOUS_FAST], 2, "2 FAST 4 KIDS 2: WAVE 19 EDITION"),
+			Wave.new(2, [KidType.FAST, KidType.FAST, KidType.FAST, KidType.INFECTIOUS_FAST], 2, "2 FAST 4 KIDS 2: WAVE 19 EDITION"),
 			]
 	
 	for wave in waves:
 		wave.connect("add_kid", self, "add_kid")
 
-	start_wave(15)
+	start_wave(0)
 
 func make_random_wave(var wave_number):
 	var kids_on_screen = max(log(wave_number+1),2)
