@@ -4,6 +4,7 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	$ScoreLabel.text = "High score: " + get_high_score()
 	$Background.play()
+	OS.set_window_maximized(true)
 	
 func _on_StartGameButton_pressed():
 	get_tree().change_scene("res://Main.tscn")
