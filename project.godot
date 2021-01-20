@@ -15,7 +15,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Clean those kids"
+config/name="Clean! Those! Kids!"
 config/description="Extreme kid cleaning simulator"
 run/main_scene="res://StartScreen.tscn"
 boot_splash/image="res://assets/splash.png"
