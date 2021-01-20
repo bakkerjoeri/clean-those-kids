@@ -19,6 +19,7 @@ config/name="Clean those kids"
 config/description="Extreme kid cleaning simulator"
 run/main_scene="res://StartScreen.tscn"
 config/icon="res://icon.png"
+config/windows_native_icon="res://icon.ico"
 
 [display]
 
