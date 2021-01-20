@@ -146,7 +146,10 @@ func _process(delta):
 	cleaning_timer -= delta
 
 func move_around(delta):
-	position += velocity * delta
+	if cleaning_timer > 0:
+		position += velocity * delta * 0.6
+	else:
+		position += velocity * delta
 	if self.cur_state == KidState.ACTIVE:
 		if position.x < 24 or position.x > screen_size.x - 24:
 			velocity.x = -velocity.x
