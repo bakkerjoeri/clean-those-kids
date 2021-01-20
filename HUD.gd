@@ -87,8 +87,23 @@ func set_time_left(var time_left: float):
 	is_first_time_update = false
 
 func show_message(var message):
-	$MessageNode/Message.text = message
-	$MessageNode/Message/AnimationPlayer.play("ShowMessage")
+	var msg:Label = $MessageNode/Message
+	#msg.visible_characters = 0
+	msg.text = message
+	
+	var tween = $MessageNode/Message/LetterTween
+	var tween_duration = float(message.length())
+	msg.modulate.a = 1.0
+	msg.percent_visible = 0.0
+	tween.interpolate_property(msg, "percent_visible", 0.0, 
+							1.0, tween_duration/20, 
+							Tween.TRANS_LINEAR, Tween.EASE_IN_OUT) 
+	tween.interpolate_property(msg, "modulate:a", 1, 
+							0, 1.0, 
+							Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, tween_duration/20) 
+	tween.start()
+	
 
 func set_multiplier_cooldown(var cooldown_percentage: float):
 	self.multiplier_true_val = cooldown_percentage
+
