@@ -1,6 +1,5 @@
 extends Node
 
-
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	$ScoreLabel.text = "High score: " + get_high_score()
