@@ -224,7 +224,6 @@ func _on_Kid_cleaned(kid):
 		end_wave(current_wave_index)
 		
 func do_kid_flash(position):
-	print("flash")
 	var flash = $ScreenEffect/FLASH
 	flash.show()
 	var tween = $ScreenEffect/Tween

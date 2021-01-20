@@ -123,7 +123,6 @@ func _process(delta):
 			$CleanParticles.emitting = false
 		elif (!is_clean):
 			is_clean = true
-			print("PERFECT KID!")
 			emit_signal("kid_cleaned", self)
 			$CleanParticles.emitting = true
 			if not has_been_cleaned:
