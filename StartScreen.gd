@@ -15,3 +15,7 @@ func get_high_score():
 	high_score.open("user://highscore.save", File.READ)
 	var score = high_score.get_line()
 	return score
+
+
+func _on_TextureButton_pressed():
+	get_tree().change_scene("res://Main.tscn")

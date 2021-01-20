@@ -1,29 +1,32 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/slapface.tres" type="DynamicFont" id=1]
 [ext_resource path="res://StartScreen.gd" type="Script" id=2]
 [ext_resource path="res://Hand.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Background.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Button.tscn" type="PackedScene" id=5]
 
 [node name="StartScreen" type="Node"]
 script = ExtResource( 2 )
 
 [node name="Background" parent="." instance=ExtResource( 4 )]
 
-[node name="StartGameButton" type="Button" parent="."]
+[node name="TextureButton" parent="." instance=ExtResource( 5 )]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -117.0
-margin_top = -18.5
-margin_right = 117.0
-margin_bottom = 18.5
-custom_fonts/font = ExtResource( 1 )
-text = "CLEAN THOSE KIDS!"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="Label" parent="TextureButton" index="0"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -46.0
+margin_top = -8.0
+margin_right = 46.0
+margin_bottom = 8.0
+text = "start!"
 
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5
@@ -60,4 +63,6 @@ __meta__ = {
 }
 
 [node name="Hand" parent="." instance=ExtResource( 3 )]
-[connection signal="pressed" from="StartGameButton" to="." method="_on_StartGameButton_pressed"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]
+
+[editable path="TextureButton"]
