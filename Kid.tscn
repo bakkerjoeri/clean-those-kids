@@ -124,8 +124,8 @@ initial_velocity = 2.0
 anim_speed = 1.5
 
 [node name="DirtParticles" type="CPUParticles2D" parent="."]
-visible = false
 material = SubResource( 15 )
+z_index = 3
 emitting = false
 amount = 3
 lifetime = 0.5

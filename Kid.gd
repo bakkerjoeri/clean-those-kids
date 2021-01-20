@@ -87,9 +87,11 @@ func build_dirt(start_pos:Vector2, amount_of_dirt: int):
 	var all_dirts = []
 	
 	# Emit some dirt cloud particles
-	var dirt_particle_emitter = DirtParticles.instance()
+	var dirt_particle_emitter = $DirtParticles
 	dirt_particle_emitter.position = start_pos
-	self.add_child(dirt_particle_emitter)
+	dirt_particle_emitter.z_index = 1
+	dirt_particle_emitter.restart()
+	dirt_particle_emitter.emitting = true
 	
 	emit_signal("dirt_clump_spawned")
 	
