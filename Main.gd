@@ -189,18 +189,20 @@ func end_wave(wave_index: int):
 	current_state = GameState.WAVE_TRANSITION
 	
 	move_kids_away()
-	yield(get_tree().create_timer(2), "timeout")
-	remove_old_kids()
+	yield(get_tree().create_timer(1), "timeout")
+	add_time(time_per_wave)
 	start_wave(wave_index+1)
 
 func start_wave(wave_index:int):
 	current_state = GameState.WAVE_TRANSITION
 	advance_wave(wave_index)
 	Engine.time_scale = current_wave.time_scale
-	initialize_spawn_location_order()
-	add_time(time_per_wave)
+	if wave_index == 0:
+		yield(get_tree().create_timer(1), "timeout")
 	$HUD.show_message("Wave " + str(wave_index + 1) + "\n" + current_wave.wave_intro)
-	yield(get_tree().create_timer(0.5), "timeout")
+	initialize_spawn_location_order()
+	yield(get_tree().create_timer(1), "timeout")
+	remove_old_kids()
 	current_wave.build_wave()
 
 func add_time(added_time):

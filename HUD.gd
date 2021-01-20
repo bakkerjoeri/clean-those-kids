@@ -92,15 +92,15 @@ func show_message(var message):
 	msg.text = message
 	
 	var tween = $MessageNode/Message/LetterTween
-	var tween_duration = float(message.length())
+	var tween_duration = float(message.length()) / 40
 	msg.modulate.a = 1.0
 	msg.percent_visible = 0.0
 	tween.interpolate_property(msg, "percent_visible", 0.0, 
-							1.0, tween_duration/20, 
+							1.0, tween_duration, 
 							Tween.TRANS_LINEAR, Tween.EASE_IN_OUT) 
-	tween.interpolate_property(msg, "modulate:a", 1, 
-							0, 1.0, 
-							Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, tween_duration/20) 
+	tween.interpolate_property(msg, "modulate:a", 1.0, 
+							0, 0.3, 
+							Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 0.4+tween_duration) 
 	tween.start()
 	
 

@@ -66,7 +66,7 @@ func _ready():
 func leave_screen():
 	self.cur_state = KidState.LEAVING
 	self.velocity = self.velocity*0
-	yield(get_tree().create_timer(0.5), "timeout")
+	yield(get_tree().create_timer(1), "timeout")
 	
 	#move away from center, plus/minus 45 degrees
 	var direction = rand_range(-PI/4, PI/4)
