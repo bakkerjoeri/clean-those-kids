@@ -1,5 +1,8 @@
 extends Node
 
+func _read():
+	Engine.time_scale = 1.0
+
 func set_score(score: int):
 	$Score.text = str(score) + " points"
 	var old_high_score = get_high_score()

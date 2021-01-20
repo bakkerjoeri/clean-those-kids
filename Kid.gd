@@ -36,7 +36,7 @@ var cleaning_timer: float = 0
 
 #Start-related variables
 var start_pos:Vector2
-var spawn_slowly:bool
+var spawn_slowly:bool = false
 var has_been_cleaned:bool = false
 
 func _ready():
@@ -59,6 +59,9 @@ func _ready():
 		velocity = Vector2(rand_range(min_speed_fast_kid, max_speed_fast_kid), 0).rotated(direction)
 	else:
 		velocity = Vector2(rand_range(min_speed, max_speed), 0).rotated(direction)
+	if kid_type == self.KidType.DIRT_TRANSCENDED:
+		velocity = velocity * 0
+		spawn_slowly = true
 
 func leave_screen():
 	self.cur_state = KidState.LEAVING
