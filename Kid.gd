@@ -128,6 +128,8 @@ func _process(delta):
 			is_clean = true
 			emit_signal("kid_cleaned", self)
 			$CleanParticles.emitting = true
+			$CleanBurst.emitting = true
+			
 			if not has_been_cleaned:
 				emit_signal("kid_cleaned_first_time")
 				has_been_cleaned = true

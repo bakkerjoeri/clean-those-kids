@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
+path="res://.import/delayed-sparkle.png-45559386e80ed0fecc069896b536128f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icon.png"
-dest_files=[ "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex" ]
+source_file="res://assets/delayed-sparkle.png"
+dest_files=[ "res://.import/delayed-sparkle.png-45559386e80ed0fecc069896b536128f.stex" ]
 
 [params]
 
