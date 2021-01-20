@@ -15,24 +15,36 @@ var time_left_previous_value = 0
 var is_first_time_update = true
 
 var multiplier_true_val = 0
-var multiplier_cur_var = 0
-var min_speed = 0.05;
+var multiplier_cur_val = 0
+
+var timer_true_val = 0
+var timer_cur_val = 0
+
+var timer_max = 30
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
-	var move_speed = 4 * (self.multiplier_true_val - self.multiplier_cur_var) * delta 
-	self.multiplier_cur_var += move_speed
+	var move_speed = 4 * (self.multiplier_true_val - self.multiplier_cur_val) * delta 
+	self.multiplier_cur_val += move_speed
+	set_cooldown($ComboCooldown, self.multiplier_cur_val)
 	
-	$ComboCooldown.rect_size = Vector2(
-	self.multiplier_cur_var * 120,
-	$ComboCooldown.rect_size.y
+	move_speed = 4 * (self.timer_true_val - self.timer_cur_val) * delta 
+	self.timer_cur_val += move_speed
+
+	set_cooldown($TimerCooldown, self.timer_cur_val/self.timer_max)
+	
+func set_cooldown(cooldown_rect, fill_percentage):
+	cooldown_rect.rect_size = Vector2(
+	fill_percentage * 120,
+	cooldown_rect.rect_size.y
 	)
-	var color_selection_id = floor(self.multiplier_cur_var * multiplier_colors.size())
+	var color_selection_id = floor(fill_percentage * multiplier_colors.size())
 	#if multiplier_cur_var would be exactly 1, this would end up on 1 too high
 	color_selection_id = min(multiplier_colors.size()-1, color_selection_id)
-	$ComboCooldown.color = multiplier_colors[color_selection_id]
+	cooldown_rect.color = multiplier_colors[color_selection_id]
 	
 func hide():
 	for child in self.get_children():
@@ -61,13 +73,15 @@ func set_multiplier(var multiplier: int):
 func set_time_left(var time_left: float):
 	$TimerContainer.set_time_left(time_left)
 	
-	if (time_left - time_left_previous_value > 0 && !is_first_time_update):
+	var time_delta = ceil(time_left) - ceil(time_left_previous_value)
+	if (time_delta > 0 && !is_first_time_update):		
 		var time_up_message = FloatingMessage.instance()
 		time_up_message.position = Vector2(265, 26)
-		time_up_message.set_message("+" + str(round(time_left - time_left_previous_value)) + " seconds")
+		time_up_message.set_message("+" + str(time_delta) + " seconds")
 		time_up_message.set_movement(8)
 		self.add_child(time_up_message)
 	
+	self.timer_true_val = time_left
 	time_left_previous_value = time_left
 	is_first_time_update = false
 

@@ -150,10 +150,16 @@ func start_wave(wave_index:int):
 	current_state = GameState.WAVE_TRANSITION
 	advance_wave(wave_index)
 	initialize_spawn_location_order()
-	time_left += time_per_wave
+	add_time(time_per_wave)
 	$HUD.show_message(current_wave.wave_intro)
 	yield(get_tree().create_timer(0.5), "timeout")
 	current_wave.build_wave()
+
+func add_time(added_time):
+	self.time_left += added_time
+	# you can never have more than 30 seconds on the clock
+	if time_left > 30:
+		time_left = 30
 
 func update_time_left(delta):
 	time_left -= delta
@@ -196,7 +202,7 @@ func _on_Dirt_spawned():
 	$ShakeCamera.shake(6)
 
 func _on_Kid_cleaned_first_time():
-	self.time_left += time_per_kid
+	add_time(time_per_kid)
 
 func _on_Kid_cleaned(kid):
 	# Add multiplier and reset its cooldown

@@ -69,6 +69,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="TimerCooldown" type="ColorRect" parent="."]
+margin_left = 214.0
+margin_top = 4.0
+margin_right = 214.0
+margin_bottom = 20.0
+color = Color( 1, 0.670588, 0.909804, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Multiplier" type="Label" parent="."]
 margin_left = 5.0
 margin_top = 6.0
