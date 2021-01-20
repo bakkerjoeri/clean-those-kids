@@ -178,4 +178,6 @@ __meta__ = {
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MessageNode/Message"]
 anims/ShowMessage = SubResource( 2 )
+
+[node name="LetterTween" type="Tween" parent="MessageNode/Message"]
 [connection signal="timeout" from="TimerContainer/Timer2" to="TimerContainer" method="_on_Timer2_timeout"]
