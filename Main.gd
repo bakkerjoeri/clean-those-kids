@@ -104,6 +104,7 @@ func make_random_wave(var wave_index):
 	weight_per_kid_type[KidType.FAST] = 3
 	weight_per_kid_type[KidType.INFECTIOUS] = 4
 	weight_per_kid_type[KidType.INFECTIOUS_FAST] = 5
+	weight_per_kid_type[KidType.INFECTIOUS_EXTRA_DIRTY] = 5
 
 	var total_weight = clamp(randi() % (wave_index / 3 + 4), 5, 20)
 	var kids_on_screen = randi() % 5 + 1

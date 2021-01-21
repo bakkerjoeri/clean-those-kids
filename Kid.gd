@@ -182,7 +182,13 @@ func _on_EnterTween_tween_completed(object, key):
 	$CleanParticles.emitting = false
 	if self.spawn_slowly:
 		yield(get_tree().create_timer(1*anim_mult), "timeout")
-	var spawn_count = self.dirty_kid_number_of_dirt_spots if self.kid_type== KidType.EXTRA_DIRTY else self.number_of_dirt_spots
+	
+	var spawn_count = 0
+	if self.kid_type == KidType.EXTRA_DIRTY || self.kid_type == KidType.INFECTIOUS_EXTRA_DIRTY:
+		spawn_count = self.dirty_kid_number_of_dirt_spots
+	else:
+		spawn_count = self.number_of_dirt_spots
+
 	# Spawn dirt
 	for _p in range(spawn_count):
 		yield(get_tree().create_timer(0.5*anim_mult), "timeout")
