@@ -16,7 +16,7 @@ export var dirt_per_spot: int = 16
 export var min_speed: int = 30
 export var max_speed: int = 50
 export var min_speed_fast_kid: int = 70
-export var max_speed_fast_kid: int = 80
+export var max_speed_fast_kid: int = 90
 export var max_dirts: int = 128
 
 enum KidState {
@@ -152,7 +152,7 @@ func _process(delta):
 
 func move_around(delta):
 	if cleaning_timer > 0:
-		position += velocity * delta * 0.6
+		position += velocity * delta * 0.75
 	else:
 		position += velocity * delta
 	if self.cur_state == KidState.ACTIVE:

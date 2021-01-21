@@ -17,7 +17,7 @@ export(PackedScene) var kid_scene
 export var amount_of_kids: int = 2
 export var time_start = 15
 export var time_per_kid = 3
-export var time_per_wave = 5
+export var time_per_wave = 4
 
 const combo_cooldown_default = 5
 
@@ -45,26 +45,27 @@ func _ready():
 	randomize()
 	screen_size = get_viewport().size
 	startPositions = $BorderStartPositions.get_children()
-	waves = [Wave.new(1, [KidType.NORMIE], 1, "Clean! Those! Kids!"),
-			Wave.new(2, [KidType.NORMIE, KidType.NORMIE], 1, "It's kids!"),
-			Wave.new(1, [KidType.NORMIE, KidType.NORMIE, KidType.NORMIE], 2, "Trackin' mud"),
-			Wave.new(1, [KidType.NORMIE, KidType.NORMIE, KidType.NORMIE, KidType.INFECTIOUS], 2, "The unclean one rises"),
-			Wave.new(2, [KidType.FAST, KidType.NORMIE, KidType.NORMIE, KidType.FAST], 1, "2 fast 4 kids!"),
-			Wave.new(2, [KidType.NORMIE, KidType.EXTRA_DIRTY, KidType.FAST, KidType.INFECTIOUS], 1, "Kid mix"),
-			Wave.new(3, [KidType.NORMIE, KidType.FAST, KidType.NORMIE, KidType.FAST, KidType.INFECTIOUS, KidType.FAST], 2, "Kid 6"),
-			Wave.new(2, [KidType.NORMIE, KidType.NORMIE, KidType.INFECTIOUS, KidType.INFECTIOUS], 2, "Double dirty"),
-			Wave.new(1, [KidType.FAST, KidType.FAST, KidType.FAST], 1, "What are they running from?"),
-			Wave.new(2, [KidType.INFECTIOUS, KidType.EXTRA_DIRTY, KidType.INFECTIOUS, KidType.INFECTIOUS_FAST], 2, "Boss kid!"),
-			Wave.new(3, [KidType.INFECTIOUS, KidType.INFECTIOUS, KidType.FAST, KidType.FAST], 2, "That joke from spinal tap"),
-			Wave.new(5, [KidType.NORMIE, KidType.NORMIE, KidType.NORMIE, KidType.NORMIE, KidType.NORMIE], 2, "Kids unending"),
-			Wave.new(2, [KidType.EXTRA_DIRTY, KidType.NORMIE, KidType.INFECTIOUS, KidType.INFECTIOUS], 2, "Control the dirt"),
-			Wave.new(2, [KidType.EXTRA_DIRTY, KidType.FAST, KidType.INFECTIOUS, KidType.INFECTIOUS], 2, "Become the dirt"),
-			Wave.new(2, [KidType.EXTRA_DIRTY, KidType.FAST, KidType.EXTRA_DIRTY, KidType.INFECTIOUS, KidType.INFECTIOUS], 2, "Overcome the dirt"),
-			Wave.new(1, [KidType.DIRT_TRANSCENDED], 1, "Dirt transcended!", 0.5),
-			Wave.new(1, [KidType.NORMIE, KidType.INFECTIOUS_FAST], 2, "Transcendance... broken?"),
-			Wave.new(3, [KidType.FAST, KidType.FAST, KidType.FAST], 2, "How do I clean these kids?"),
-			Wave.new(2, [KidType.FAST, KidType.FAST, KidType.FAST, KidType.INFECTIOUS_FAST], 2, "They stole my first edition charizard"),
-			]
+	waves = [
+		Wave.new(1, [KidType.NORMIE], 1, "Clean! Those! Kids!"),
+		Wave.new(2, [KidType.NORMIE, KidType.NORMIE], 1, "It's kids!"),
+		Wave.new(1, [KidType.NORMIE, KidType.NORMIE, KidType.NORMIE], 2, "Trackin' mud"),
+		Wave.new(1, [KidType.NORMIE, KidType.NORMIE, KidType.NORMIE, KidType.INFECTIOUS], 2, "The unclean one rises"),
+		Wave.new(2, [KidType.FAST, KidType.NORMIE, KidType.NORMIE, KidType.FAST], 1, "2 fast 4 kids!"),
+		Wave.new(4, [KidType.NORMIE, KidType.EXTRA_DIRTY, KidType.FAST, KidType.INFECTIOUS], 1, "Kid mix"),
+		Wave.new(3, [KidType.NORMIE, KidType.FAST, KidType.NORMIE, KidType.FAST, KidType.INFECTIOUS, KidType.FAST], 2, "Kid 6"),
+		Wave.new(2, [KidType.NORMIE, KidType.NORMIE, KidType.INFECTIOUS, KidType.INFECTIOUS], 2, "Double dirty"),
+		Wave.new(1, [KidType.FAST, KidType.FAST, KidType.FAST], 1, "What are they running from?"),
+		Wave.new(2, [KidType.INFECTIOUS, KidType.EXTRA_DIRTY, KidType.INFECTIOUS, KidType.INFECTIOUS_FAST], 2, "Boss kid!"),
+		Wave.new(3, [KidType.INFECTIOUS, KidType.INFECTIOUS, KidType.FAST, KidType.FAST], 1, "That joke from spinal tap"),
+		Wave.new(5, [KidType.NORMIE, KidType.NORMIE, KidType.NORMIE, KidType.NORMIE, KidType.NORMIE], 1, "Kids unending"),
+		Wave.new(2, [KidType.EXTRA_DIRTY, KidType.NORMIE, KidType.INFECTIOUS, KidType.INFECTIOUS], 2, "Control the dirt"),
+		Wave.new(2, [KidType.EXTRA_DIRTY, KidType.FAST, KidType.INFECTIOUS, KidType.INFECTIOUS], 2, "Become the dirt"),
+		Wave.new(2, [KidType.EXTRA_DIRTY, KidType.FAST, KidType.INFECTIOUS, KidType.EXTRA_DIRTY, KidType.INFECTIOUS_EXTRA_DIRTY], 2, "Overcome the dirt"),
+		Wave.new(1, [KidType.DIRT_TRANSCENDED], 1, "Dirt transcended!", 0.5),
+		Wave.new(2, [KidType.NORMIE, KidType.INFECTIOUS_FAST], 1, "Transcendance... broken?"),
+		Wave.new(3, [KidType.FAST, KidType.FAST, KidType.FAST], 2, "How do I clean these kids?"),
+		Wave.new(2, [KidType.FAST, KidType.INFECTIOUS_FAST, KidType.FAST, KidType.FAST, KidType.INFECTIOUS_FAST], 2, "They stole my first edition charizard"),
+	]
 	
 	for wave in waves:
 		wave.connect("add_kid", self, "add_kid")
@@ -106,7 +107,7 @@ func make_random_wave(var wave_index):
 	weight_per_kid_type[KidType.INFECTIOUS_FAST] = 5
 	weight_per_kid_type[KidType.INFECTIOUS_EXTRA_DIRTY] = 5
 
-	var total_weight = clamp(randi() % (wave_index / 3 + 4), 5, 20)
+	var total_weight = clamp(randi() % (wave_index / 3 + 4), 5, 25)
 	var kids_on_screen = randi() % 5 + 1
 	var max_kids = clamp(randi() % 10, 4, 9)
 
