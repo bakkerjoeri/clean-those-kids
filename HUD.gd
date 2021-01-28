@@ -114,8 +114,11 @@ func show_message(var message):
 							Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 0.8+tween_duration) 
 	tween.start()
 	letters_showing = true
+	$MessageNode/RibbonSound.play()
 	yield(get_tree().create_timer(0.1), "timeout")
 	$MessageNode/LetterSound.play()
+	yield(get_tree().create_timer(0.7+tween_duration), "timeout")
+	$MessageNode/RibbonSound.play()
 
 func get_message_anim_time(var message):
 	return float(message.length()) / 20
