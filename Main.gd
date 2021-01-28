@@ -152,6 +152,7 @@ func is_game_over() -> bool:
 
 func add_kid(kid_type, spawn_in_center:bool):
 	var kid = kid_scene.instance()
+	kid.wave_index = self.current_wave_index
 	if self.current_wave_index == 0:
 		kid.spawn_slowly = true
 	if spawn_in_center:

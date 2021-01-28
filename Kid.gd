@@ -30,6 +30,7 @@ var is_clean = false
 var velocity: Vector2
 var screen_size: Vector2
 var kid_type
+var wave_index
 var cur_state
 var cleaning_timer_duration: float = 0.5
 var cleaning_timer: float = 0
@@ -54,11 +55,15 @@ func _ready():
 	
 	# Set direction
 	var direction = rand_range(-PI, PI)
-	
+	var wave_difficulty_ramp = 20
+	var max_speed_mult = 1.0
+	if wave_index > wave_difficulty_ramp:
+		max_speed_mult += (wave_index-wave_difficulty_ramp)/10.0*0.5
+		
 	if kid_type == self.KidType.FAST or kid_type == self.KidType.INFECTIOUS_FAST:
-		velocity = Vector2(rand_range(min_speed_fast_kid, max_speed_fast_kid), 0).rotated(direction)
+		velocity = Vector2(rand_range(min_speed_fast_kid, max_speed_fast_kid*max_speed_mult), 0).rotated(direction)
 	else:
-		velocity = Vector2(rand_range(min_speed, max_speed), 0).rotated(direction)
+		velocity = Vector2(rand_range(min_speed, max_speed*max_speed_mult), 0).rotated(direction)
 	if kid_type == self.KidType.DIRT_TRANSCENDED:
 		velocity = velocity * 0
 		spawn_slowly = true
