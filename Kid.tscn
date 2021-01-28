@@ -121,7 +121,7 @@ texture = ExtResource( 7 )
 visible = false
 position = Vector2( 0, -31 )
 frames = SubResource( 14 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="CleanParticles" type="CPUParticles2D" parent="."]
@@ -221,5 +221,6 @@ stream = ExtResource( 9 )
 
 [node name="KidGetsDirtySound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 10 )
+attenuation = 1.4237e-05
 [connection signal="area_entered" from="." to="." method="_on_Kid_area_entered"]
 [connection signal="tween_completed" from="EnterTween" to="." method="_on_EnterTween_tween_completed"]
