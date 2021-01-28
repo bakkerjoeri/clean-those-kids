@@ -158,7 +158,6 @@ centered = false
 
 [node name="MessageNode" type="Node2D" parent="."]
 position = Vector2( 0, 90 )
-z_index = 10
 z_as_relative = false
 
 [node name="ColorRect" type="ColorRect" parent="MessageNode"]
