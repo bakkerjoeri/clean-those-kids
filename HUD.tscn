@@ -4,9 +4,9 @@
 [ext_resource path="res://assets/slapface.tres" type="DynamicFont" id=2]
 [ext_resource path="res://TimerContainer.gd" type="Script" id=3]
 [ext_resource path="res://assets/hud.png" type="Texture" id=4]
-[ext_resource path="res://assets/low_on_time.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/time-over.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/letter_appears.wav" type="AudioStream" id=6]
-[ext_resource path="res://assets/ribbon_motion.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/swish.wav" type="AudioStream" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Flash"
@@ -201,6 +201,5 @@ stream = ExtResource( 6 )
 [node name="RibbonSound" type="AudioStreamPlayer" parent="MessageNode"]
 stream = ExtResource( 7 )
 [connection signal="timeout" from="TimerContainer/Timer2" to="TimerContainer" method="_on_Timer2_timeout"]
-[connection signal="finished" from="TimerContainer/LowOnTimeSound" to="TimerContainer" method="_on_LowOnTimeSound_finished"]
 [connection signal="tween_completed" from="MessageNode/Message/LetterTween" to="." method="_on_LetterTween_tween_completed"]
 [connection signal="finished" from="MessageNode/LetterSound" to="." method="_on_LetterSound_finished"]
