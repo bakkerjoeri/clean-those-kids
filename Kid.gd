@@ -129,7 +129,8 @@ func _process(delta):
 			emit_signal("kid_cleaned", self)
 			$CleanParticles.emitting = true
 			$CleanBurst.emitting = true
-			
+			$KidCleanedSound.pitch_scale = rand_range(0.9,1.4)
+			$KidCleanedSound.play()
 			if not has_been_cleaned:
 				emit_signal("kid_cleaned_first_time")
 				has_been_cleaned = true

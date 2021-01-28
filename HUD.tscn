@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://HUD.gd" type="Script" id=1]
 [ext_resource path="res://assets/slapface.tres" type="DynamicFont" id=2]
 [ext_resource path="res://TimerContainer.gd" type="Script" id=3]
 [ext_resource path="res://assets/hud.png" type="Texture" id=4]
+[ext_resource path="res://assets/low_on_time.wav" type="AudioStream" id=5]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Flash"
@@ -125,6 +126,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="LowOnTimeSound" type="AudioStreamPlayer" parent="TimerContainer"]
+stream = ExtResource( 5 )
+
 [node name="ScoreBackground" type="ColorRect" parent="."]
 margin_left = 126.0
 margin_top = 4.0
@@ -181,3 +185,4 @@ anims/ShowMessage = SubResource( 2 )
 
 [node name="LetterTween" type="Tween" parent="MessageNode/Message"]
 [connection signal="timeout" from="TimerContainer/Timer2" to="TimerContainer" method="_on_Timer2_timeout"]
+[connection signal="finished" from="TimerContainer/LowOnTimeSound" to="TimerContainer" method="_on_LowOnTimeSound_finished"]
