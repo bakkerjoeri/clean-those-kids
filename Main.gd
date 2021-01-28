@@ -264,7 +264,7 @@ func _on_Kid_cleaned_first_time():
 
 func _on_Kid_cleaned(kid):
 	# Add multiplier and reset its cooldown
-	multiplier += 1
+	multiplier += int((current_wave_index+1)/5)+1
 	combo_cooldown = combo_cooldown_default
 	# Create the message that the kid was cleaned
 	var kid_cleaned_message = KidCleanMessage.instance()
