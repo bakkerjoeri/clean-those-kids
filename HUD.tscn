@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://HUD.gd" type="Script" id=1]
 [ext_resource path="res://assets/slapface.tres" type="DynamicFont" id=2]
 [ext_resource path="res://TimerContainer.gd" type="Script" id=3]
 [ext_resource path="res://assets/hud.png" type="Texture" id=4]
 [ext_resource path="res://assets/low_on_time.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/letter_appears.wav" type="AudioStream" id=6]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Flash"
@@ -184,5 +185,10 @@ __meta__ = {
 anims/ShowMessage = SubResource( 2 )
 
 [node name="LetterTween" type="Tween" parent="MessageNode/Message"]
+
+[node name="LetterSound" type="AudioStreamPlayer" parent="MessageNode"]
+stream = ExtResource( 6 )
 [connection signal="timeout" from="TimerContainer/Timer2" to="TimerContainer" method="_on_Timer2_timeout"]
 [connection signal="finished" from="TimerContainer/LowOnTimeSound" to="TimerContainer" method="_on_LowOnTimeSound_finished"]
+[connection signal="tween_completed" from="MessageNode/Message/LetterTween" to="." method="_on_LetterTween_tween_completed"]
+[connection signal="finished" from="MessageNode/LetterSound" to="." method="_on_LetterSound_finished"]

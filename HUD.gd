@@ -21,6 +21,9 @@ var timer_true_val = 0
 var timer_cur_val = 0
 
 var timer_max = 30
+var play_letter_sound
+
+var letters_showing
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -102,8 +105,17 @@ func show_message(var message):
 							0, 0.3, 
 							Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 0.4+tween_duration) 
 	tween.start()
-	
+	letters_showing = true
+	$MessageNode/LetterSound.play()
 
 func set_multiplier_cooldown(var cooldown_percentage: float):
 	self.multiplier_true_val = cooldown_percentage
 
+func _on_LetterTween_tween_completed(object, key):
+	if key == ":percent_visible":
+		letters_showing = false
+		
+
+func _on_LetterSound_finished():
+	if letters_showing:
+		$MessageNode/LetterSound.play()
