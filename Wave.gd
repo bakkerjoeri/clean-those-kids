@@ -12,8 +12,13 @@ var wave_intro
 var adds_per_time:int
 var time_scale
 
-func _init(var initial_kid_count:int, var kids_to_spawn:Array, 
-			var adds_per_time:int, var wave_intro, var time_scale = 1.0):
+func _init(
+	var initial_kid_count: int,
+	var kids_to_spawn: Array, 
+	var adds_per_time: int,
+	var wave_intro,
+	var time_scale = 1.0
+):
 	self.initial_kid_count = initial_kid_count
 	self.kids_to_spawn = kids_to_spawn
 	self.total_kid_count = kids_to_spawn.size()
