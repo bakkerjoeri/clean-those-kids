@@ -45,6 +45,8 @@ __meta__ = {
 
 [node name="Hand" parent="." instance=ExtResource( 2 )]
 position = Vector2( 150.952, -62.7811 )
+z_index = 15
+z_as_relative = false
 
 [node name="HUD" parent="." instance=ExtResource( 4 )]
 z_index = -1
