@@ -318,6 +318,7 @@ func _on_Tween2_tween_completed(object, key):
 func _on_Kid_start_moving():
 	# Start animating the backgound if it didn't yet
 	$Background.play()
-	$MusicPlayer.play()
+	if not $MusicPlayer.playing:
+		$MusicPlayer.play()
 	if current_state == GameState.WAVE_TRANSITION:
 		current_state = GameState.PLAY
