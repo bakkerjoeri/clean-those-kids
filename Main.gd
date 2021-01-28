@@ -110,7 +110,8 @@ const random_wave_intros = [
 	"The gang ruins a carpet",
 	"Slatternly youth",
 	"Begrimed and bedraggled",
-	"Something wicked this way comes",
+	"Something wicked this wave comes",
+	"Dirt galore",
 ]
 
 func make_random_wave(var wave_index):
