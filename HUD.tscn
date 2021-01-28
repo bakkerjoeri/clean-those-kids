@@ -161,12 +161,21 @@ position = Vector2( 0, 90 )
 z_index = 10
 z_as_relative = false
 
+[node name="ColorRect" type="ColorRect" parent="MessageNode"]
+margin_top = -20.0
+margin_right = 320.0
+margin_bottom = 20.0
+color = Color( 1, 0, 0.854902, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Message" type="Label" parent="MessageNode"]
 anchor_right = 1.0
 margin_left = 0.161545
-margin_top = -19.3868
+margin_top = -19.0895
 margin_right = 320.162
-margin_bottom = 18.6132
+margin_bottom = 18.9105
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
@@ -176,7 +185,6 @@ text = "Wave 2
 2 fast 4 kids!"
 align = 1
 valign = 1
-percent_visible = 0.0
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -201,9 +201,11 @@ func start_wave(wave_index:int):
 	Engine.time_scale = current_wave.time_scale
 	if wave_index == 0:
 		yield(get_tree().create_timer(1), "timeout")
-	$HUD.show_message("Wave " + str(wave_index + 1) + "\n" + current_wave.wave_intro)
+	var message_to_show = "Wave " + str(wave_index + 1) + "\n" + current_wave.wave_intro
+	
+	$HUD.show_message(message_to_show)
 	initialize_spawn_location_order()
-	yield(get_tree().create_timer(1), "timeout")
+	yield(get_tree().create_timer(0.5+$HUD.get_message_anim_time(message_to_show)), "timeout")
 	remove_old_kids()
 	current_wave.build_wave()
 
