@@ -96,6 +96,10 @@ func build_dirt(start_pos:Vector2, amount_of_dirt: int):
 	dirt_particle_emitter.restart()
 	dirt_particle_emitter.emitting = true
 	
+	# Make some noise!
+	$KidGetsDirtySound.pitch_scale = rand_range(0.8,1.2)
+	$KidGetsDirtySound.play()
+	
 	emit_signal("dirt_clump_spawned")
 	
 	while all_dirts.size() < amount_of_dirt:

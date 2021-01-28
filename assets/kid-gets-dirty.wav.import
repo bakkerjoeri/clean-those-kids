@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/kid-gets-dirty.wav-e7d56d189c5b975cb7c891b8ce72ddf7.sample"
+
+[deps]
+
+source_file="res://assets/kid-gets-dirty.wav"
+dest_files=[ "res://.import/kid-gets-dirty.wav-e7d56d189c5b975cb7c891b8ce72ddf7.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
