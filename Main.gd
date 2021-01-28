@@ -70,6 +70,7 @@ func _ready():
 		wave.connect("add_kid", self, "add_kid")
 
 	start_wave(0)
+	$GameStartSound.play()
 
 const random_wave_intros = [
 	"Gnarly",
