@@ -96,22 +96,22 @@ func show_message(var message):
 	var msg:Label = $MessageNode/Message
 	#msg.visible_characters = 0
 	msg.text = message
-	
+
 	var tween = $MessageNode/Message/LetterTween
 	var tween_duration = get_message_anim_time(message)
 	reset_message_animation_stuff()
 	tween.interpolate_property($MessageNode/ColorRect, "rect_size:x", 0.0, 
-							screen_size.x, 0.1, 
+							screen_size.x, 0.2, 
 							Tween.TRANS_LINEAR, Tween.EASE_IN_OUT) 
 	tween.interpolate_property(msg, "percent_visible", 0.0, 
 							1, tween_duration, 
-							Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 0.1) 
-	#tween.interpolate_property(msg, "modulate:a", 1, 
-	#						0, 0.3, 
-	#						Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 0.8+tween_duration) 
-	tween.interpolate_property($MessageNode, "position:x", 0.0, 
-							screen_size.x, 0.2, 
-							Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 0.5+tween_duration) 
+							Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 0.1)
+	tween.interpolate_property($MessageNode/Message, "rect_position:x", 0.0, 
+							-screen_size.x, 0.15, 
+							Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 0.7+tween_duration) 
+	tween.interpolate_property($MessageNode/ColorRect, "rect_position:x", 0.0, 
+							screen_size.x, 0.15, 
+							Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 0.8+tween_duration) 
 	tween.start()
 	letters_showing = true
 	yield(get_tree().create_timer(0.1), "timeout")
@@ -122,8 +122,10 @@ func get_message_anim_time(var message):
 
 func reset_message_animation_stuff():
 	$MessageNode/ColorRect.rect_size.x = 0
+	$MessageNode/ColorRect.rect_position.x = 0
 	$MessageNode/Message.modulate.a = 1.0
 	$MessageNode/Message.percent_visible = 0.0
+	$MessageNode/Message.rect_position.x = 0
 	$MessageNode.position.x = 0
 	
 
