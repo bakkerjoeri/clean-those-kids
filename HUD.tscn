@@ -1,9 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://HUD.gd" type="Script" id=1]
 [ext_resource path="res://assets/slapface.tres" type="DynamicFont" id=2]
 [ext_resource path="res://TimerContainer.gd" type="Script" id=3]
 [ext_resource path="res://assets/hud.png" type="Texture" id=4]
+[ext_resource path="res://assets/low_on_time.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/letter_appears.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/ribbon_motion.wav" type="AudioStream" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Flash"
@@ -125,6 +128,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="LowOnTimeSound" type="AudioStreamPlayer" parent="TimerContainer"]
+stream = ExtResource( 5 )
+
 [node name="ScoreBackground" type="ColorRect" parent="."]
 margin_left = 126.0
 margin_top = 4.0
@@ -156,12 +162,20 @@ position = Vector2( 0, 90 )
 z_index = 10
 z_as_relative = false
 
+[node name="ColorRect" type="ColorRect" parent="MessageNode"]
+margin_top = -24.0
+margin_right = 320.0
+margin_bottom = 24.0
+color = Color( 0.705882, 0.898039, 0.780392, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Message" type="Label" parent="MessageNode"]
 anchor_right = 1.0
-margin_left = 0.161545
-margin_top = -19.3868
-margin_right = 320.162
-margin_bottom = 18.6132
+margin_top = -19.0
+margin_right = 320.0
+margin_bottom = 19.0
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
@@ -180,4 +194,13 @@ __meta__ = {
 anims/ShowMessage = SubResource( 2 )
 
 [node name="LetterTween" type="Tween" parent="MessageNode/Message"]
+
+[node name="LetterSound" type="AudioStreamPlayer" parent="MessageNode"]
+stream = ExtResource( 6 )
+
+[node name="RibbonSound" type="AudioStreamPlayer" parent="MessageNode"]
+stream = ExtResource( 7 )
 [connection signal="timeout" from="TimerContainer/Timer2" to="TimerContainer" method="_on_Timer2_timeout"]
+[connection signal="finished" from="TimerContainer/LowOnTimeSound" to="TimerContainer" method="_on_LowOnTimeSound_finished"]
+[connection signal="tween_completed" from="MessageNode/Message/LetterTween" to="." method="_on_LetterTween_tween_completed"]
+[connection signal="finished" from="MessageNode/LetterSound" to="." method="_on_LetterSound_finished"]

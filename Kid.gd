@@ -16,7 +16,7 @@ export var dirt_per_spot: int = 16
 export var min_speed: int = 30
 export var max_speed: int = 50
 export var min_speed_fast_kid: int = 70
-export var max_speed_fast_kid: int = 80
+export var max_speed_fast_kid: int = 90
 export var max_dirts: int = 128
 
 enum KidState {
@@ -96,6 +96,10 @@ func build_dirt(start_pos:Vector2, amount_of_dirt: int):
 	dirt_particle_emitter.restart()
 	dirt_particle_emitter.emitting = true
 	
+	# Make some noise!
+	$KidGetsDirtySound.pitch_scale = rand_range(0.8,1.2)
+	$KidGetsDirtySound.play()
+	
 	emit_signal("dirt_clump_spawned")
 	
 	while all_dirts.size() < amount_of_dirt:
@@ -129,7 +133,7 @@ func _process(delta):
 			emit_signal("kid_cleaned", self)
 			$CleanParticles.emitting = true
 			$CleanBurst.emitting = true
-			
+			$KidCleanedSound.play()
 			if not has_been_cleaned:
 				emit_signal("kid_cleaned_first_time")
 				has_been_cleaned = true
@@ -152,7 +156,7 @@ func _process(delta):
 
 func move_around(delta):
 	if cleaning_timer > 0:
-		position += velocity * delta * 0.6
+		position += velocity * delta * 0.75
 	else:
 		position += velocity * delta
 	if self.cur_state == KidState.ACTIVE:
@@ -182,7 +186,13 @@ func _on_EnterTween_tween_completed(object, key):
 	$CleanParticles.emitting = false
 	if self.spawn_slowly:
 		yield(get_tree().create_timer(1*anim_mult), "timeout")
-	var spawn_count = self.dirty_kid_number_of_dirt_spots if self.kid_type== KidType.EXTRA_DIRTY else self.number_of_dirt_spots
+	
+	var spawn_count = 0
+	if self.kid_type == KidType.EXTRA_DIRTY || self.kid_type == KidType.INFECTIOUS_EXTRA_DIRTY:
+		spawn_count = self.dirty_kid_number_of_dirt_spots
+	else:
+		spawn_count = self.number_of_dirt_spots
+
 	# Spawn dirt
 	for _p in range(spawn_count):
 		yield(get_tree().create_timer(0.5*anim_mult), "timeout")

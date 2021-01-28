@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/golucky.oggvorbis.ogg-d0100f8b8664b882568e6efdc77fcbee.oggstr"
+
+[deps]
+
+source_file="res://assets/golucky.oggvorbis.ogg"
+dest_files=[ "res://.import/golucky.oggvorbis.ogg-d0100f8b8664b882568e6efdc77fcbee.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

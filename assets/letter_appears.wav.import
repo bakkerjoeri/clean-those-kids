@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/letter_appears.wav-97557b2b8748dd373473c019da4cb654.sample"
+
+[deps]
+
+source_file="res://assets/letter_appears.wav"
+dest_files=[ "res://.import/letter_appears.wav-97557b2b8748dd373473c019da4cb654.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

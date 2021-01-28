@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ScoreIncreaseMessage.gd" type="Script" id=1]
 [ext_resource path="res://assets/slapface.tres" type="DynamicFont" id=2]
+[ext_resource path="res://assets/dirt-clean.wav" type="AudioStream" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Bump"
@@ -67,4 +68,7 @@ anims/Cash = SubResource( 2 )
 [node name="DestroyTimer" type="Timer" parent="."]
 wait_time = 1.5
 one_shot = true
+
+[node name="ScoreUpSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
 [connection signal="timeout" from="DestroyTimer" to="." method="_on_DestroyTimer_timeout"]
