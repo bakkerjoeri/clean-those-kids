@@ -189,10 +189,10 @@ func end_wave(wave_index: int):
 	current_state = GameState.WAVE_TRANSITION
 	
 	move_kids_away()
+	$WaveClearSound.play()
 	yield(get_tree().create_timer(0.8), "timeout")
 	add_time(time_per_wave)
 	start_wave(wave_index+1)
-	$WaveClearSound.play()
 
 func start_wave(wave_index:int):
 	current_state = GameState.WAVE_TRANSITION

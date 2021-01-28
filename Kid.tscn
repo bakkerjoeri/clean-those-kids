@@ -8,7 +8,7 @@
 [ext_resource path="res://assets/stinkie.png" type="Texture" id=6]
 [ext_resource path="res://assets/eye.png" type="Texture" id=7]
 [ext_resource path="res://assets/delayed-sparkle.png" type="Texture" id=8]
-[ext_resource path="res://assets/kid_cleaned.wav" type="AudioStream" id=9]
+[ext_resource path="res://assets/kid-cleaned.wav" type="AudioStream" id=9]
 [ext_resource path="res://assets/kid-gets-dirty.wav" type="AudioStream" id=10]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -121,7 +121,7 @@ texture = ExtResource( 7 )
 visible = false
 position = Vector2( 0, -31 )
 frames = SubResource( 14 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="CleanParticles" type="CPUParticles2D" parent="."]

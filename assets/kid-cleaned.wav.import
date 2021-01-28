@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/kid_cleaned.wav-a86aa5382428e426ffc0cb7e97133344.sample"
+path="res://.import/kid-cleaned.wav-022905933cb0f2673a1dbf03732c55c3.sample"
 
 [deps]
 
-source_file="res://assets/kid_cleaned.wav"
-dest_files=[ "res://.import/kid_cleaned.wav-a86aa5382428e426ffc0cb7e97133344.sample" ]
+source_file="res://assets/kid-cleaned.wav"
+dest_files=[ "res://.import/kid-cleaned.wav-022905933cb0f2673a1dbf03732c55c3.sample" ]
 
 [params]
 
