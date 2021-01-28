@@ -17,7 +17,8 @@ const messages = [
 	'filth banished!',
 	'deep scrub!',
 	'cleansed kid!',
-	'spotless!'
+	'spotless!',
+	'filth no more',
 ]
 
 func _ready():

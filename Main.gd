@@ -112,6 +112,7 @@ const random_wave_intros = [
 	"Begrimed and bedraggled",
 	"Something wicked this wave comes",
 	"Dirt galore",
+	"Dirty dancing",
 ]
 
 func make_random_wave(var wave_index):
