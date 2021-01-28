@@ -108,10 +108,14 @@ func make_random_wave(var wave_index):
 	weight_per_kid_type[KidType.INFECTIOUS_FAST] = 5
 	weight_per_kid_type[KidType.INFECTIOUS_EXTRA_DIRTY] = 5
 
-	var total_weight = clamp(randi() % (wave_index / 3 + 4), 5, 25)
+	var min_val = (wave_index / 3 + 4)
+	var max_val = 25
+	
+	var total_weight = randi() % (max_val - min_val) + min_val
 	var kids_on_screen = randi() % 5 + 1
 	var max_kids = clamp(randi() % 10, 4, 9)
-
+	var allowed_infectious_kids = 3
+	
 	var wave_intro = ""
 	if (wave_index + 1 == 20):
 		wave_intro = "\"Procedural generation\" time"
@@ -121,6 +125,14 @@ func make_random_wave(var wave_index):
 	var kids = []
 	while(total_weight > 0 && kids.size() <= max_kids):
 		var random_kid_type = KidType.values()[randi() % KidType.values().size()]
+		if random_kid_type == KidType.INFECTIOUS or \
+		   random_kid_type == KidType.INFECTIOUS_EXTRA_DIRTY or \
+		   random_kid_type == KidType.INFECTIOUS_FAST:
+			if allowed_infectious_kids > 0:
+				allowed_infectious_kids -= 1
+			else:
+				print("not allowing infectious kid!")
+				continue
 		total_weight -= weight_per_kid_type[random_kid_type]
 		kids.append(random_kid_type)
 		
