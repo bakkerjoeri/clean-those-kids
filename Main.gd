@@ -115,6 +115,7 @@ func make_random_wave(var wave_index):
 	var kids_on_screen = randi() % 5 + 1
 	var max_kids = clamp(randi() % 10, 4, 9)
 	var allowed_infectious_kids = 3
+	var kids_added = randi() % 3 + 1
 	
 	var wave_intro = ""
 	if (wave_index + 1 == 20):
@@ -136,7 +137,7 @@ func make_random_wave(var wave_index):
 		total_weight -= weight_per_kid_type[random_kid_type]
 		kids.append(random_kid_type)
 		
-	var wave = Wave.new(kids_on_screen, kids, 2, wave_intro)
+	var wave = Wave.new(kids_on_screen, kids, kids_added, wave_intro)
 	wave.connect("add_kid", self, "add_kid")
 	waves.append(wave)
 	
