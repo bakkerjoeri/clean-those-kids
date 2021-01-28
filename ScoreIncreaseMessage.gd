@@ -36,18 +36,10 @@ func _process(delta):
 		self.position -= Vector2(0, upward_movement * delta)
 
 func play_score_sound():
-	var pitch = 1 + (0.05 * times_incremented)
+	var pitch = 1 + (0.1 * times_incremented)
 	
-	if (current_sound == SoundType.UP):
-		$ScoreUpSound2.stop()
-		$ScoreUpSound1.pitch_scale = pitch
-		$ScoreUpSound1.play()
-		current_sound = SoundType.DOWN
-	elif (current_sound == SoundType.DOWN):
-		$ScoreUpSound1.stop()
-		$ScoreUpSound2.pitch_scale = pitch
-		$ScoreUpSound2.play()
-		current_sound = SoundType.UP
+	$ScoreUpSound.pitch_scale = pitch
+	$ScoreUpSound.play()
 
 func update_label():
 	if (score > 0 && multiplier > 1):
