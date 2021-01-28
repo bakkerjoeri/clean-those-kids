@@ -134,6 +134,7 @@ func _process(delta: float):
 	update_score_message(delta)
 
 	if (is_game_over() && current_state != GameState.GAME_OVER):
+		$GameOverSound.play()
 		current_state = GameState.GAME_OVER
 		var game_over_screen = GameOverScreen.instance()
 		game_over_screen.set_score(score)

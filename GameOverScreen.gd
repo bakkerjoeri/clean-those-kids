@@ -1,6 +1,6 @@
 extends Node
 
-func _read():
+func _ready():
 	Engine.time_scale = 1.0
 
 func set_score(score: int):

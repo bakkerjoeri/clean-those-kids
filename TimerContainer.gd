@@ -53,6 +53,6 @@ func _on_Timer2_timeout():
 
 
 func _on_LowOnTimeSound_finished():
+	yield(get_tree().create_timer(0.5), "timeout")
 	if rounded_time > 0 and rounded_time <= 5:
-		yield(get_tree().create_timer(0.5), "timeout")
 		play_low_time_sound()
