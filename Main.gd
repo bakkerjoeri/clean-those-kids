@@ -42,7 +42,6 @@ var score_message_cooldown: float = 0.75
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	randomize()
 	screen_size = get_viewport().size
 	startPositions = $BorderStartPositions.get_children()
 	waves = [
@@ -71,7 +70,7 @@ func _ready():
 		wave.connect("add_kid", self, "add_kid")
 
 	start_wave(0)
-	$GameStartSound.play()
+	#$GameStartSound.play()
 
 const random_wave_intros = [
 	"Gnarly",

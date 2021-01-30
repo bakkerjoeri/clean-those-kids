@@ -18,6 +18,7 @@ export var max_speed: int = 50
 export var min_speed_fast_kid: int = 70
 export var max_speed_fast_kid: int = 90
 export var max_dirts: int = 128
+export var intro_kid = false
 
 enum KidState {
 	ENTERING,
@@ -30,7 +31,7 @@ var is_clean = false
 var velocity: Vector2
 var screen_size: Vector2
 var kid_type
-var wave_index
+var wave_index = 0
 var cur_state
 var cleaning_timer_duration: float = 0.5
 var cleaning_timer: float = 0
@@ -47,11 +48,14 @@ func _ready():
 	
 	cur_state = KidState.ENTERING
 	var tween = $EnterTween
-	var tween_duration = 1 if self.spawn_slowly else rand_range(0.3, 0.5)
-	tween.interpolate_property(self, "position", self.position, 
-							start_pos, tween_duration, 
-							Tween.TRANS_LINEAR, Tween.EASE_IN_OUT) 
-	tween.start()
+	if not intro_kid:
+		var tween_duration = 1 if self.spawn_slowly else rand_range(0.3, 0.5)
+		tween.interpolate_property(self, "position", self.position, 
+								start_pos, tween_duration, 
+								Tween.TRANS_LINEAR, Tween.EASE_IN_OUT) 
+		tween.start()
+	else:
+		cur_state = KidState.ACTIVE
 	
 	# Set direction
 	var direction = rand_range(-PI, PI)
@@ -68,14 +72,14 @@ func _ready():
 		velocity = velocity * 0
 		spawn_slowly = true
 
-func leave_screen():
+func leave_screen(leave_delay=1.0, leave_velocity=200):
 	self.cur_state = KidState.LEAVING
 	self.velocity = self.velocity*0
-	yield(get_tree().create_timer(1), "timeout")
+	yield(get_tree().create_timer(leave_delay), "timeout")
 	
 	#move away from center, plus/minus 45 degrees
 	var direction = rand_range(-PI/4, PI/4)
-	self.velocity = (self.position-self.screen_size/2).normalized().rotated(direction)*200
+	self.velocity = (self.position-self.screen_size/2).normalized().rotated(direction)*leave_velocity
 
 func set_kid_type(type):
 	self.kid_type = type
@@ -137,8 +141,9 @@ func _process(delta):
 			is_clean = true
 			emit_signal("kid_cleaned", self)
 			$CleanParticles.emitting = true
-			$CleanBurst.emitting = true
-			$KidCleanedSound.play()
+			if not intro_kid:
+				$CleanBurst.emitting = true
+				$KidCleanedSound.play()
 			if not has_been_cleaned:
 				emit_signal("kid_cleaned_first_time")
 				has_been_cleaned = true
