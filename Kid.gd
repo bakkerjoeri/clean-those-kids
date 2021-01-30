@@ -188,10 +188,12 @@ func _on_Kid_area_entered(other_kid: Area2D):
 
 func _on_EnterTween_tween_completed(object, key):
 	var anim_mult = 1 if self.spawn_slowly else 0.1
-	$CleanParticles.emitting = false
-	if self.spawn_slowly:
-		yield(get_tree().create_timer(1*anim_mult), "timeout")
 	
+	if self.spawn_slowly:
+		yield(get_tree().create_timer(0.5*anim_mult), "timeout")
+		$CleanParticles.emitting = false
+		yield(get_tree().create_timer(0.5*anim_mult), "timeout")
+	$CleanParticles.emitting = false
 	var spawn_count = 0
 	if self.kid_type == KidType.EXTRA_DIRTY || self.kid_type == KidType.INFECTIOUS_EXTRA_DIRTY:
 		spawn_count = self.dirty_kid_number_of_dirt_spots
@@ -199,9 +201,11 @@ func _on_EnterTween_tween_completed(object, key):
 		spawn_count = self.number_of_dirt_spots
 
 	# Spawn dirt
+	cleaning_timer = 100 #Make eyes big as well with gross hack
 	for _p in range(spawn_count):
 		yield(get_tree().create_timer(0.5*anim_mult), "timeout")
 		add_dirt_clump()
 	yield(get_tree().create_timer(1*anim_mult), "timeout")
 	cur_state = KidState.ACTIVE
+	cleaning_timer = 0	#Make eyes small again
 	emit_signal("kid_start_moving")
