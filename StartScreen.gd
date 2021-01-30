@@ -34,6 +34,7 @@ func get_high_score():
 
 
 func _on_TextureButton_pressed():
+	$TextureButton.disabled = true
 	$TextureButton/ButtonPressedSound.play()
 	for kid in $Kids.get_children():
 		kid.cleaning_timer = 100
