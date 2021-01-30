@@ -18,6 +18,8 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+margin_top = -6.0
+margin_bottom = 18.0
 
 [node name="Label" parent="TextureButton" index="0"]
 anchor_left = 0.5
@@ -33,17 +35,41 @@ text = "start!"
 [node name="ButtonPressedSound" type="AudioStreamPlayer" parent="TextureButton"]
 stream = ExtResource( 7 )
 
-[node name="Label" type="Label" parent="."]
+[node name="TitleLabel" type="Label" parent="."]
 anchor_left = 0.5
 anchor_top = 0.132
 anchor_right = 0.5
 anchor_bottom = 0.132
 margin_left = -64.5
-margin_right = 64.5
-margin_bottom = 25.0
+margin_top = -11.0
+margin_right = 65.5
+margin_bottom = 14.0
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
 text = "Clean! Those! Kids!"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MadeByLabel" type="Label" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -46.0
+margin_bottom = -30.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+text = "a game by Ewoud & Joeri"
+align = 1
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -54,12 +80,15 @@ anchor_left = 0.5
 anchor_top = 0.132
 anchor_right = 0.5
 anchor_bottom = 0.132
-margin_left = -113.0
-margin_top = 108.24
-margin_right = 119.0
-margin_bottom = 133.24
+margin_left = -159.0
+margin_top = 103.24
+margin_right = 160.0
+margin_bottom = 128.24
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
 text = "High Score:"
 align = 1
 valign = 1
@@ -68,7 +97,7 @@ __meta__ = {
 }
 
 [node name="Hand" parent="." instance=ExtResource( 3 )]
-position = Vector2( 17.5953, 40.5359 )
+position = Vector2( 152.991, -58.9572 )
 
 [node name="Kids" type="Node" parent="."]
 
