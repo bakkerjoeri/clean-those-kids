@@ -198,7 +198,7 @@ func add_kid(kid_type, spawn_in_center:bool):
 	kid.connect("dirt_clump_spawned", self, "_on_Dirt_spawned")
 	kid.connect("kid_start_moving", self, "_on_Kid_start_moving")
 	kid.set_kid_type(kid_type)
-	add_child(kid)
+	$KidHolder.add_child(kid)
 	current_kids.append(kid)
 	
 func remove_old_kids():

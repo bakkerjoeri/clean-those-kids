@@ -24,7 +24,19 @@ func save_high_score(score: int):
 	high_score.store_line(str(score))
 
 func _on_RetryButton_pressed():
+	start_screen_transition()
+	yield(get_tree().create_timer(1), "timeout")
 	get_tree().change_scene("res://Main.tscn")
 
 func _on_MainMenuButton_pressed():
+	start_screen_transition()
+	yield(get_tree().create_timer(1), "timeout")
 	get_tree().change_scene("res://StartScreen.tscn")
+	
+func start_screen_transition():
+	$RetryButton.disabled = true
+	$MainMenuButton.disabled = true
+	$ButtonPressedSound.play()
+	for kid in get_node("/root/Main/KidHolder").get_children():
+		kid.cleaning_timer = 100
+		kid.leave_screen(0.4, 500)

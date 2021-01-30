@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://GameOverScreen.gd" type="Script" id=1]
 [ext_resource path="res://assets/slapface.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Button.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/kid-cleaned.wav" type="AudioStream" id=4]
 
 [node name="GameOverScreen" type="Node"]
 script = ExtResource( 1 )
@@ -58,6 +59,9 @@ margin_top = 4.0
 margin_right = 94.0
 margin_bottom = 20.0
 text = "main menu"
+
+[node name="ButtonPressedSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
 [connection signal="pressed" from="RetryButton" to="." method="_on_RetryButton_pressed"]
 [connection signal="pressed" from="MainMenuButton" to="." method="_on_MainMenuButton_pressed"]
 
