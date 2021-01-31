@@ -11,11 +11,10 @@ const colors = [
 var dirt_strength: int
 
 func _ready():
-	var my_color = colors[randi() % colors.size()]
 	dirt_strength = randi() % 3 + 1
 	$ColorRect.color = colors[dirt_strength - 1]
 
-func _on_Dirt_area_entered(area):
+func _on_Dirt_area_entered(_area):
 	dirt_strength-=1
 	if dirt_strength <= 0:
 		emit_signal("cleaned")

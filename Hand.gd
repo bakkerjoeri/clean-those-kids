@@ -14,6 +14,6 @@ func _process(delta: float):
 		$DropsLeft.emitting = false
 		$DropsRight.emitting = false
 
-func _on_Hand_area_entered(area):
+func _on_Hand_area_entered(_area):
 	cleaning_timer = cleaning_timer_duration
 	

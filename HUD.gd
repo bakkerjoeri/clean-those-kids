@@ -135,7 +135,7 @@ func reset_message_animation_stuff():
 func set_multiplier_cooldown(var cooldown_percentage: float):
 	self.multiplier_true_val = cooldown_percentage
 
-func _on_LetterTween_tween_completed(object, key):
+func _on_LetterTween_tween_completed(_object, key):
 	if key == ":percent_visible":
 		letters_showing = false
 		

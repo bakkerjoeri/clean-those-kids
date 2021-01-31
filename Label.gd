@@ -6,7 +6,7 @@ var offset: Vector2 = Vector2(0, 0)
 func _ready():
 	base_position = rect_position
 
-func _process(delta):
+func _process(_delta):
 	rect_position = base_position + offset
 
 func _on_TextureButton_button_down():

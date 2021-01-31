@@ -344,7 +344,7 @@ func _on_Dirt_cleaned(kid):
 	self.current_score_message.multiplier = multiplier
 	self.score_message_timer = self.score_message_cooldown
 
-func _on_Tween2_tween_completed(object, key):
+func _on_Tween2_tween_completed(_object, _key):
 	var flash = $ScreenEffect/FLASH
 	flash.hide()
 
