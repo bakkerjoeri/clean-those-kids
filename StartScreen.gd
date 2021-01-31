@@ -7,7 +7,7 @@ func _ready():
 	randomly_init_kids()
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	$ScoreLabel.text = "High score: " + get_high_score()
+	$ScoreLabel.text = "high score: " + get_high_score()
 	get_node("/root/MainNode/Background").play()
 	OS.set_window_maximized(true)
 	
