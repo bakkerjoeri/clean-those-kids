@@ -191,7 +191,7 @@ func _on_Kid_area_entered(other_kid: Area2D):
 	if (self.kid_type == KidType.INFECTIOUS or self.kid_type == KidType.INFECTIOUS_FAST) && !is_clean:
 		other_kid.call_deferred("add_dirt_clump", 8)
 
-func _on_EnterTween_tween_completed(object, key):
+func _on_EnterTween_tween_completed(_object, _key):
 	var anim_mult = 1 if self.spawn_slowly else 0.1
 	
 	if self.spawn_slowly:

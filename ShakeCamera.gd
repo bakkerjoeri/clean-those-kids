@@ -3,7 +3,7 @@ extends Camera2D
 var decay = 1
 var amplitude = 0
 
-func _process(delta):
+func _process(_delta):
 	if (amplitude > 0):
 		do_shaking()
 		amplitude = max(amplitude - decay, 0)
