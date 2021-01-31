@@ -71,4 +71,5 @@ one_shot = true
 
 [node name="ScoreUpSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+bus = "Sound effects"
 [connection signal="timeout" from="DestroyTimer" to="." method="_on_DestroyTimer_timeout"]

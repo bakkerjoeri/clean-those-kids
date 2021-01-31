@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/slapface.tres" type="DynamicFont" id=1]
 [ext_resource path="res://StartScreen.gd" type="Script" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://Button.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Kid.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/kid-cleaned.wav" type="AudioStream" id=7]
+[ext_resource path="res://ButtonSoundEffects.tscn" type="PackedScene" id=8]
+[ext_resource path="res://ButtonMusic.tscn" type="PackedScene" id=9]
 
 [node name="StartScreen" type="Node"]
 script = ExtResource( 2 )
@@ -34,6 +36,7 @@ text = "start!"
 
 [node name="ButtonPressedSound" type="AudioStreamPlayer" parent="TextureButton"]
 stream = ExtResource( 7 )
+bus = "Sound effects"
 
 [node name="TitleLabel" type="Label" parent="."]
 anchor_left = 0.5
@@ -82,9 +85,9 @@ anchor_top = 0.132
 anchor_right = 0.5
 anchor_bottom = 0.132
 margin_left = -159.0
-margin_top = 103.24
+margin_top = 103.155
 margin_right = 160.0
-margin_bottom = 128.24
+margin_bottom = 128.155
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
@@ -121,6 +124,18 @@ intro_kid = true
 position = Vector2( 77.9536, 54.5675 )
 z_index = -1
 intro_kid = true
+
+[node name="ButtonMusic" parent="." instance=ExtResource( 9 )]
+margin_left = 290.837
+margin_top = 150.967
+margin_right = 314.837
+margin_bottom = 174.967
+
+[node name="ButtonSoundEffects" parent="." instance=ExtResource( 8 )]
+margin_left = 261.987
+margin_top = 150.929
+margin_right = 285.987
+margin_bottom = 174.929
 [connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]
 
 [editable path="TextureButton"]

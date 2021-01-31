@@ -218,9 +218,11 @@ position = Vector2( 13, -1 )
 
 [node name="KidCleanedSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
+bus = "Sound effects"
 
 [node name="KidGetsDirtySound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
 volume_db = 3.0
+bus = "Sound effects"
 [connection signal="area_entered" from="." to="." method="_on_Kid_area_entered"]
 [connection signal="tween_completed" from="EnterTween" to="." method="_on_EnterTween_tween_completed"]

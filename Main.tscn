@@ -106,16 +106,20 @@ position = Vector2( 160, 96 )
 [node name="WaveClearSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
 volume_db = -1.0
+bus = "Sound effects"
 
 [node name="GameOverSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
 volume_db = -2.618
+bus = "Sound effects"
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
+bus = "Music"
 
 [node name="GameStartSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
+bus = "Sound effects"
 
 [node name="KidHolder" type="Node" parent="."]
 [connection signal="tween_completed" from="ScreenEffect/Tween2" to="." method="_on_Tween2_tween_completed"]
