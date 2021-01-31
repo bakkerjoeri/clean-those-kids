@@ -1,13 +1,18 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/slapface.tres" type="DynamicFont" id=1]
 [ext_resource path="res://StartScreen.gd" type="Script" id=2]
 [ext_resource path="res://Hand.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/slapface_big.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://Button.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Kid.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/kid-cleaned.wav" type="AudioStream" id=7]
 [ext_resource path="res://ButtonSoundEffects.tscn" type="PackedScene" id=8]
 [ext_resource path="res://ButtonMusic.tscn" type="PackedScene" id=9]
+
+[sub_resource type="DynamicFont" id=1]
+size = 26
+font_data = ExtResource( 4 )
 
 [node name="StartScreen" type="Node"]
 script = ExtResource( 2 )
@@ -17,8 +22,8 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_top = -6.0
-margin_bottom = 18.0
+margin_top = 10.0
+margin_bottom = 34.0
 
 [node name="Label" parent="TextureButton" index="0"]
 anchor_left = 0.5
@@ -44,13 +49,12 @@ margin_left = -160.0
 margin_top = -10.76
 margin_right = 160.0
 margin_bottom = 14.24
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
-custom_constants/shadow_offset_x = 1
-custom_constants/shadow_offset_y = 1
-custom_constants/shadow_as_outline = 1
+custom_colors/font_color_shadow = Color( 0.337255, 0.701961, 0.752941, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
 text = "Clean! Those! Kids!"
 align = 1
 valign = 1
@@ -82,9 +86,9 @@ anchor_top = 0.132
 anchor_right = 0.5
 anchor_bottom = 0.132
 margin_left = -159.0
-margin_top = 103.155
+margin_top = 128.24
 margin_right = 160.0
-margin_bottom = 128.155
+margin_bottom = 153.24
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
