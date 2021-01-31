@@ -49,7 +49,7 @@ func _ready():
 	cur_state = KidState.ENTERING
 	var tween = $EnterTween
 	if not intro_kid:
-		var tween_duration = 1 if self.spawn_slowly else rand_range(0.3, 0.5)
+		var tween_duration = 1.0 if self.spawn_slowly else rand_range(0.3, 0.5)
 		tween.interpolate_property(self, "position", self.position, 
 								start_pos, tween_duration, 
 								Tween.TRANS_LINEAR, Tween.EASE_IN_OUT) 
@@ -192,7 +192,7 @@ func _on_Kid_area_entered(other_kid: Area2D):
 		other_kid.call_deferred("add_dirt_clump", 8)
 
 func _on_EnterTween_tween_completed(_object, _key):
-	var anim_mult = 1 if self.spawn_slowly else 0.1
+	var anim_mult = 1.0 if self.spawn_slowly else 0.1
 	
 	if self.spawn_slowly:
 		yield(get_tree().create_timer(0.5*anim_mult), "timeout")
