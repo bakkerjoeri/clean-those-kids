@@ -8,7 +8,7 @@ func _ready():
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	$ScoreLabel.text = "High score: " + get_high_score()
-	$Background.play()
+	get_node("/root/MainNode/Background").play()
 	OS.set_window_maximized(true)
 	
 func randomly_init_kids():
@@ -36,8 +36,11 @@ func get_high_score():
 func _on_TextureButton_pressed():
 	$TextureButton.disabled = true
 	$TextureButton/ButtonPressedSound.play()
+	get_node("/root/MainNode/Background").stop()
 	for kid in $Kids.get_children():
 		kid.cleaning_timer = 100
 		kid.leave_screen(0.4, 500)
 	yield(get_tree().create_timer(1), "timeout")
-	get_tree().change_scene("res://Main.tscn")
+	var mainScene = load("res://Main.tscn").instance()
+	get_node("/root/MainNode").add_child(mainScene)
+	queue_free()

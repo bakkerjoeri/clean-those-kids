@@ -174,7 +174,7 @@ func _process(delta: float):
 		self.add_child(game_over_screen)
 		$HUD.hide()
 		$Hand/CollisionShape2D.set_deferred("disabled", true)
-		$Background.stop()
+		get_node("/root/MainNode/Background").stop()
 
 func is_game_over() -> bool:
 	return time_left <= 0
@@ -350,7 +350,7 @@ func _on_Tween2_tween_completed(object, key):
 
 func _on_Kid_start_moving():
 	# Start animating the backgound if it didn't yet
-	$Background.play()
+	get_node("/root/MainNode/Background").play()
 	if not $MusicPlayer.playing:
 		$MusicPlayer.play()
 	if current_state == GameState.WAVE_TRANSITION:

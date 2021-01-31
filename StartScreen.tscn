@@ -1,17 +1,14 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/slapface.tres" type="DynamicFont" id=1]
 [ext_resource path="res://StartScreen.gd" type="Script" id=2]
 [ext_resource path="res://Hand.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Background.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Button.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Kid.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/kid-cleaned.wav" type="AudioStream" id=7]
 
 [node name="StartScreen" type="Node"]
 script = ExtResource( 2 )
-
-[node name="Background" parent="." instance=ExtResource( 4 )]
 
 [node name="TextureButton" parent="." instance=ExtResource( 5 )]
 anchor_left = 0.5
