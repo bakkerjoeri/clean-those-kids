@@ -130,6 +130,7 @@ __meta__ = {
 
 [node name="LowOnTimeSound" type="AudioStreamPlayer" parent="TimerContainer"]
 stream = ExtResource( 5 )
+bus = "Sound effects"
 
 [node name="ScoreBackground" type="ColorRect" parent="."]
 margin_left = 126.0
@@ -197,9 +198,11 @@ anims/ShowMessage = SubResource( 2 )
 
 [node name="LetterSound" type="AudioStreamPlayer" parent="MessageNode"]
 stream = ExtResource( 6 )
+bus = "Sound effects"
 
 [node name="RibbonSound" type="AudioStreamPlayer" parent="MessageNode"]
 stream = ExtResource( 7 )
+bus = "Sound effects"
 [connection signal="timeout" from="TimerContainer/Timer2" to="TimerContainer" method="_on_Timer2_timeout"]
 [connection signal="tween_completed" from="MessageNode/Message/LetterTween" to="." method="_on_LetterTween_tween_completed"]
 [connection signal="finished" from="MessageNode/LetterSound" to="." method="_on_LetterSound_finished"]

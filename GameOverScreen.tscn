@@ -62,6 +62,7 @@ text = "main menu"
 
 [node name="ButtonPressedSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+bus = "Sound effects"
 [connection signal="pressed" from="RetryButton" to="." method="_on_RetryButton_pressed"]
 [connection signal="pressed" from="MainMenuButton" to="." method="_on_MainMenuButton_pressed"]
 
