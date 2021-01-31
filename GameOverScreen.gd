@@ -26,17 +26,19 @@ func save_high_score(score: int):
 func _on_RetryButton_pressed():
 	start_screen_transition()
 	yield(get_tree().create_timer(1), "timeout")
-	start_new_scene("res://Main.tscn")
+	var new_scene = load("res://Main.tscn").instance()
+	new_scene.set_name("Main")
+	start_new_scene(new_scene)
 
 func _on_MainMenuButton_pressed():
 	start_screen_transition()
 	yield(get_tree().create_timer(1), "timeout")
-	start_new_scene("res://StartScreen.tscn")
+	var new_scene = load("res://StartScreen.tscn").instance()
+	start_new_scene(new_scene)
 	
-func start_new_scene(scene_name):
-	var mainScene = load(scene_name).instance()
-	get_node("/root/MainNode").add_child(mainScene)
-	get_node("/root/MainNode/Main").queue_free()
+func start_new_scene(scene):
+	get_node("/root/MainNode").add_child(scene)
+	get_node("/root/MainNode/").find_node("*Main*", false, false).queue_free()
 	queue_free()
 	
 	
@@ -44,6 +46,7 @@ func start_screen_transition():
 	$RetryButton.disabled = true
 	$MainMenuButton.disabled = true
 	$ButtonPressedSound.play()
-	for kid in get_node("/root/MainNode/Main/KidHolder").get_children():
+	var main_node = get_node("/root/MainNode/").find_node("*Main*", false, false)
+	for kid in main_node.get_node("KidHolder").get_children():
 		kid.cleaning_timer = 100
 		kid.leave_screen(0.4, 500)
